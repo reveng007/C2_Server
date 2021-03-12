@@ -2,15 +2,14 @@
 
 import socket
 from termcolor import colored # python coloring library
-
 import time
-
-# Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 import os
+# Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 
 import json
 # The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.
 
+import pyfiglet # python module used to produce ASCII art fonts
 
 # Sending whole data all at once
 def send_eff(data):
@@ -74,6 +73,18 @@ def download_file(file_name):
 	file.close()
 
 
+def banner():
+
+	bann = pyfiglet.figlet_format("C2 Server", font = "slant")
+	print(bann)
+
+	print('''Please feel free to reach me for some suggestions:
+
+⚪ https://www.linkedin.com/in/soumyanil-biswas/
+⚪ https://twitter.com/soumyani1
+	''')
+
+
 # C2 server function
 def server():
 
@@ -83,6 +94,8 @@ def server():
 
 	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 	sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+	banner()
 
 	ip = "0.0.0.0" # listening on any ip, change it (if you wish to)
 	port = 1234 # chnage it (if you wish to)

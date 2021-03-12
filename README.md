@@ -38,6 +38,7 @@ $ python3 rev_shell.py
 ```
 Now, we will get a shell on the C2 Server to play around:
 ![](https://github.com/reveng007/C2_Server/blob/main/images/shell.png?raw=true)
+
 _In this case, I actually used ubuntu as victim._
 
 ## Why am I making this ?

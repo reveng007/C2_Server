@@ -2,6 +2,7 @@
 
 import socket
 from termcolor import colored # python coloring library
+
 import time
 
 # Library can be used to change directory by the C2 server owner, after getting a shell back from trgt

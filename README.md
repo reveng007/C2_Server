@@ -3,7 +3,7 @@
 
 ![](https://github.com/reveng007/C2_Server/blob/main/images/banner.png?raw=true)
 
-# ***C2_Server***
+# ***C2 Server***
 
 ## So, What the heck is a C2 Server and what it's gonna do ?
 

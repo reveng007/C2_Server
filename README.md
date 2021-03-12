@@ -7,7 +7,7 @@
 
 ## So, What the heck is a C2 Server and what it's gonna do ?
 
-Well, Command & Control server, also called C2 or C&C server. It is actually a centralized server or computer or simply control centre that attackers use to control their target machine (or victim). Attacker just need to send the reverse shell script and execute it (in someways) on the target machine and that's it. Reverse shell is basically a code which is injected into the trgt machine, so that target machine alone can send a initiating connection request back to attacker machine where C2 server is running/listening on open/listening port. Here also, we are doing the same thing. Once the C2 Server is connected to target machine,anything on victim machine can be accessed by the attacker depending on the efficiency of the C2 server.
+Well, Command & Control server, also called C2 or C&C server. It is actually a centralized server or computer or simply control centre that attackers use to control their target machine (or victim). Attacker just need to send the reverse shell script(exploit) and execute it (in someways) on the target machine and that's it. Reverse shell is basically a code which is injected into the trgt machine, so that target machine alone can send an initiating connection request back to attacker machine where C2 server is running/listening on open/listening port. Here also, we are doing the same thing. Once the C2 Server is connected to target machine, anything on victim machine can be accessed by the attacker depending on the efficiency of the C2 server.
 
 ![](https://miro.medium.com/max/1162/1*aNtBQC4GG8klpMxvZ2_WuQ.png)
 

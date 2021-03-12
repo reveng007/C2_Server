@@ -45,7 +45,7 @@ _In this case, I actually used ubuntu as victim._
 
 1. I'm making this to know, how things work. Exploring the things which are most of the time present behind the curtains.
 
-2. Aiming to make a more stable version of C2 server, as most C2 servers tend to lag/hang and even terminate sessions most of the time.
+2. Aiming to make a more stable version of C2 server, as most C2 servers tend to lag/hang and even terminate sessions unreliably.
 
 ## To Do List:
 - Response becomes slow sometimes.

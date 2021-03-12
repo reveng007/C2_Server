@@ -1,2 +1,3 @@
-termcolor
-PyAutoGUI
+termcolor==1.1.0
+PyAutoGUI==0.9.52
+pyfiglet==0.8.post1

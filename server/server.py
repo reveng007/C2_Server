@@ -11,6 +11,7 @@ import json
 
 import pyfiglet # python module used to produce ASCII art fonts
 
+
 # Sending whole data all at once
 def send_eff(data):
 

@@ -25,7 +25,7 @@ Install the required python dependencies on both attacker and victim machines
 $ pip install -r requirement.txt
 ```
 
-## Now, you are all set, but how to use this scripts ?
+## Now, we are all set, but how to use this scripts ?
 
 At first move the rev_shell.py script to the trgt machine, linux or windows (above 7).
 Then back in the attacker machine, run the server script:

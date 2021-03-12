@@ -3,8 +3,9 @@
 import socket
 from termcolor import colored # python coloring library
 import time
-import os
+
 # Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
+import os
 
 import json
 # The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.

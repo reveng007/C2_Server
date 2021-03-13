@@ -65,3 +65,8 @@ _In this case, I actually used ubuntu as victim._
 - Adding persistance for windows
 - PrivEsc
 - If possible : mimikatz (support)
+
+### Advancement of some functionalities:
+
+- Adding screenshot functionalities with ctypes python library by removing Pillow, as Pillow library does not come with default installation of python but **ctypes** library does.
+

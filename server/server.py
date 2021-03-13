@@ -216,7 +216,7 @@ You can also use other commands related to networking, etc for linux as well as 
 			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
-		# clearing screen in windows ✓
+		# clearing screen in windows/linux ✓
 		elif (cmd[:3] == "cls" and len(cmd) > 1) or (cmd[:5] == 'clear' and len(cmd) > 1):
 
 			def screen_clear():

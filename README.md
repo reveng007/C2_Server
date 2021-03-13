@@ -61,6 +61,7 @@ _In this case, I actually used ubuntu as victim._
 - Infiltration : Adding sending folder section
 - screenshot   : Screenshot feature for windows is not working for now, so whole screenshot code will we added as soon as I figure out the cause
 - Adding Keylogger ( Though it was mentioned in help menu section)
+- Browser password sniffer
 - Ransomeware
 - Adding persistance for windows
 - PrivEsc

@@ -68,5 +68,5 @@ _In this case, I actually used Windows10 as victim machine._
 
 ### Advancement of some functionalities:
 
-- Adding screenshot functionalities with ctypes python library by removing Pillow, as Pillow library does not come with default installation of python but **ctypes** library does.
+- Adding screenshot functionalities with **ctypes** python library by removing Pillow, as Pillow library does not come with default installation of python but **ctypes** library does.
 

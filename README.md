@@ -61,6 +61,7 @@ _In this case, I actually used Windows10 as victim machine._
 - Infiltration : Adding sending folder section
 - Adding Keylogger ( Though it is already mentioned in help menu section)
 - Browser password sniffer
+- Wan/public ip spoofer
 - Ransomeware
 - Adding persistance for windows
 - PrivEsc

@@ -43,7 +43,7 @@ _In this case, I actually used Windows10 as victim machine._
 
 ## Why am I making this ?
 
-1. I'm making this to know, how things work. Exploring the things which are most of the time present behind the curtains.
+1. I'm making this to know, how things work. Exploring the things which are most of the time present behind the curtains and also to experience, how it feels to be on the developing side ;)
 
 2. Aiming to make a more stable version of C2 server, as most C2 servers tend to lag/hang and even terminate sessions unreliably.
 

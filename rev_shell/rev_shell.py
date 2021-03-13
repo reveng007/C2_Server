@@ -83,7 +83,7 @@ def shell():
 		elif cmd == "help": # ✓
 			pass
 
-		elif cmd == "cls": # ✓
+		elif (cmd == "cls") or (cmd == "clear"): # ✓
 			pass
 
 		# Changing directory ✓

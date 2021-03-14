@@ -241,7 +241,7 @@ You can also use other commands related to networking, etc for linux as well as 
 			continue   			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
-		# Screenshot
+		# Screenshot    ✓
 
 		# screenshot function is same as download as after all we would only
 		# download the captured image from trgt as rev_shell gonna take the ss

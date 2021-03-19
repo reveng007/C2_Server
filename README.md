@@ -56,10 +56,8 @@ _In this case, I actually used Windows10 as victim machine._
     we can see that again file listing is shown. As 1st 'ls' result was shown when 2nd time 'ls' was
     used  by me and the result for 2nd time use of 'ls' was shown now. And this goes on.
 
-- Removing folders/directories from trgt linux/windows
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
-- Adding Keylogger :  Not getting shell back after closing keylogger in windows unlike linux
 - Browser password extractor
 - Wan/public ip spoofer
 - Ransomeware

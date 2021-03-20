@@ -136,6 +136,7 @@ In this way the server lags...
 
 ## Links that helped me to make chrome browser password extractor:
 
+- [null-byte](https://null-byte.wonderhowto.com/forum/extract-passwords-password-extraction-with-passgetter-0339053/)
 - [medium-base64](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747)
 - [wiki-DPAPI](https://en.wikipedia.org/wiki/Data_Protection_API)
 - [win32crypt](https://yiyibooks.cn/__src__/meikunyuan6/pywin32/pywin32/PyWin32/win32crypt.html)

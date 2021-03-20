@@ -130,6 +130,10 @@ In this way the server lags...
 - Adding screenshot functionalities with **ctypes** python library by removing Pillow, as Pillow library does not come with default installation of python but **ctypes** library does.
 - Adding threading
 
+### password spoofing portion:
+
+![Alt text](https://github.com/reveng007/C2_Server/blob/main/passwd_spoof.gif)
+
 ## Links that helped me to make chrome browser password extractor:
 
 - [medium-base64](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747)

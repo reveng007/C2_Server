@@ -199,7 +199,7 @@ spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 
 ''', 'green'))
 			print(colored('You can also use other commands related to networking, etc for linux as well as windows','yellow'))
-			print(colored('''------------------------------------------------------------------------------------------''','green'))
+			print(colored('------------------------------------------------------------------------------------------','green'))
 
 		# Making folder/directory in linux and windows ✓
 		elif cmd[:5] == "mkdir" and len(cmd) > 1:

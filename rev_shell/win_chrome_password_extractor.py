@@ -113,7 +113,7 @@ def encryption_key():
 	# For reference: 
 	# https://yiyibooks.cn/__src__/meikunyuan6/pywin32/pywin32/PyWin32/win32crypt.html
 
-	# Why did 'CryptUnprotectData' is used ?
+	# Why was 'CryptUnprotectData' used ?
 	# Chrome utilizes a Windows function called CryptProtectData 
 	# to encrypt passwords stored on computers with a randomly 
 	# generated key

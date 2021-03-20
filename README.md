@@ -13,17 +13,77 @@ Well, Command & Control server, also called C2 or C&C server. It is actually a c
 
 ## Currently, this C2 Server have these functionalities:
 
-![](https://github.com/reveng007/C2_Server/blob/main/images/help_section.png?raw=true)
+```
 
+List of available Commands:
+----------------------------------------------------------------------------------------
+
+exit                          :    To terminate session
+
+mkdir <directory>
+(linux/windows)               :    To make folders
+
+touch <file>
+(linux/win)                   :    To make files
+
+echo "<something>"            :    To display line of text/string that are passed as an argument
+
+echo "<something>" >/>> file  :    To redirect text to a file, make files
+(linux/windows)
+
+cd <directory>
+(linux/win)                   :    To change directory/folder
+
+del <file>                    :    To remove files
+(linux/win)
+
+rmdir <folder>
+OR                            :    To remove folder
+rm -r <folder>
+(linux/windows)
+
+clear / cls (linux/windows)   :    To clear terminal/cmd
+(Can be used interchangeably)
+
+ls_h                          :    List files in host's present working directory
+
+take <file> (linux/windows)   :    To exfiltrate file from trgt
+
+drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
+
+screenshot OR  ss             :    To take screenshot and self destructs the screenshot from trgt
+
+keylog_on                     :    To start keylogger
+
+keylog_dump                   :    To print keystrokes
+
+keylog_off                    :    To close keylogger and self destruct the logged file
+
+spoof_passwd                  :    To spoof password as a file from trgt machine (windows 10, Chrome browser Version 89.0.4389.90 (Official Build) (64-bit)) and sents to C2Server
+(windows only)
+
+spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
+
+
+You can also use other commands related to networking, etc for linux as well as windows
+------------------------------------------------------------------------------------------
+```
 ## To test this C2 Server:
 Clone the repository:
 ```
 $ git clone https://github.com/reveng007/C2_Server.git
 ```
-Install the required python dependencies on both attacker and victim machines
+Install the required python dependencies on both attacker and victim machines:
+For win machine:
 ```
-$ pip install -r requirement.txt
+$ pip install -r win_requirement.txt
 ```
+For linux machine:
+```
+$ pip install -r lnx_requirement.txt
+```
+### NOTE:
+Just a reminder, win32crypt can't be installed in linux, so I have made seperate requirement files
 
 ## Now, we are all set, but how to use this scripts ?
 
@@ -59,8 +119,7 @@ In this way the server lags...
 
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
-- Browser password extractor
-- Wan/public ip spoofer
+- Wan/public ip spoofer (Though mentioned in help section, but that func is not uploaded, coming soon...)
 - Ransomeware
 - Adding persistance for windows
 - PrivEsc

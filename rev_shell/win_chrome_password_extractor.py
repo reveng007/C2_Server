@@ -1,30 +1,29 @@
 #!/usr/bin/python3
 
 import os     # Library provides a portable way of using
-		      # operating system-dependent functionality
+	      # operating system-dependent functionality
 
-import json   # The process of encoding JSON is usually 
-			  # called serialization. This term refers to 
-			  # the transformation of data into a series 
-			  # of bytes (hence serial) to be stored or 
-			  # transmitted across a network.
+import json   # The process of encoding JSON is usually
+	      # called serialization. This term refers
+              # the transformation of data into a series
+              # of bytes (hence serial) to be stored or
+              # transmitted across a network.
 
-import base64 # Base64 encoding is used to convert bytes 
-			  # that have binary or text data into 
-			  # ASCII characters
+import base64 # Base64 encoding is used to convert bytes
+	      # that have binary or text data into
+              # ASCII characters
 
-#import win32crypt #  An interface to the win32 Cryptography API
 
 from Crypto.Cipher import AES # python Cryptographic module
 
-import shutil     # This module helps in automating process of 
-				  #	copying and removal of files and directories
+import shutil     # This module helps in automating process of
+	          # copying and removal of files and directories
 
 import sqlite3    # SQLite3 can be integrated with Python using sqlite3 module
 
 from datetime import datetime, timedelta # all the functions are explained
-												   # at particular line where they
-												   # are being used
+			                 # at particular line where they
+                                         # are being used
 
 
 
@@ -141,7 +140,7 @@ def d_passwd(passwd, key):
 		# To clarify the concept of this line
 		# I only got this link but still unable to get it:
 
-		# https://crypto.stackexchange.com/questions/78095/iv-generation-best-practice-for-aes-256-cbc#:~:text=1%20Answer&text=answer%20was%20accepted%E2%80%A6-,I%20saw%20some%20SWIFT%20code%20that%20generates%20IV%20for%20AES,zA%2DZ0%2D9%20space.
+		# http://bit.ly/3c3hLLd
 
 		iv = passwd[3:15] # nonce = iv
 
@@ -150,11 +149,11 @@ def d_passwd(passwd, key):
 		# Generating cipher to decrypt AES
 		# Chrome uses AES-256
 
-		# see: http://bit.ly/2Pa7Tq1
+		# see: https://cloud.google.com/security/encryption-at-rest/default-encryption
 
-		# Actually the link was way too big, that is why...
+		# Actually those links were way too big, that is why...
 
-		# To check legitimacy of the link, use: http://bit.ly/2Pa7Tq1+
+		# To check legitimacy of the link, use: http://bit.ly/3c3hLLd+
 
 		cipher = AES.new(key, AES.MODE_GCM, iv)
 		# All mordern technologies uses GCM of operation for

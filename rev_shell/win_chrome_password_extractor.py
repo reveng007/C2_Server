@@ -156,7 +156,7 @@ def d_passwd(passwd, key):
 		# To check legitimacy of the link, use: http://bit.ly/3c3hLLd+
 
 		cipher = AES.new(key, AES.MODE_GCM, iv)
-		# All mordern technologies uses GCM of operation for
+		# All mordern technologies uses GCM of operation
 		# But haven't got yet whether google uses GCM or not
 
 		# decrypting the password

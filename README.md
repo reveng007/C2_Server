@@ -73,13 +73,13 @@ Clone the repository:
 ```
 $ git clone https://github.com/reveng007/C2_Server.git
 ```
-Install the required python dependencies on both attacker and victim machines:
+#### Install the required python dependencies on both attacker and victim machines:
 &nbsp;
-For win machine:
+##### For win machine:
 ```
 $ pip install -r win_requirement.txt
 ```
-For linux machine:
+##### For linux machine:
 ```
 $ pip install -r lnx_requirement.txt
 ```

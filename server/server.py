@@ -78,13 +78,13 @@ def download_file(file_name):
 def banner():
 
 	bann = pyfiglet.figlet_format("C2 Server", font = "slant")
-	print(colored(bann, 'blue'))
+	print(colored(bann, 'cyan'))
 
 	print("\r")
-	print(colored("-"*50,'blue'))
+	print(colored("-"*50,'cyan'))
 	print("\r")
 
-	print(colored("Created by @soumyani1", 'blue'))
+	print(colored("Created by @soumyani1", 'cyan'))
 
 	print("\n")
 
@@ -93,7 +93,7 @@ def banner():
 	print(colored('''
 ⚪ https://www.linkedin.com/in/soumyanil-biswas/
 ⚪ https://twitter.com/soumyani1
-	''', 'blue'))
+	''', 'cyan'))
 
 
 # C2 server function

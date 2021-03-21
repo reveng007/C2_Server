@@ -142,13 +142,13 @@ Check this out by yourself...
 
 ## Links that helped me to make chrome browser password extractor:
 
-- [null-byte](https://null-byte.wonderhowto.com/forum/extract-passwords-password-extraction-with-passgetter-0339053/)
-- [medium-base64](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747)
-- [wiki-DPAPI](https://en.wikipedia.org/wiki/Data_Protection_API)
-- [win32crypt](https://yiyibooks.cn/__src__/meikunyuan6/pywin32/pywin32/PyWin32/win32crypt.html)
-- [microsoft](https://docs.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata?redirectedfrom=MSDN)
-- [stackoverflow](https://stackoverflow.com/questions/61099492/chrome-80-password-file-decryption-in-python)
-- [stackexchange](https://crypto.stackexchange.com/questions/78095/iv-generation-best-practice-for-aes-256-cbc#:~:text=1%20Answer&text=answer%20was%20accepted%E2%80%A6-,I%20saw%20some%20SWIFT%20code%20that%20generates%20IV%20for%20AES,zA%2DZ0%2D9%20space.)
-- [google](https://cloud.google.com/security/encryption-at-rest/default-encryption)
-- [superuser](https://superuser.com/questions/146742/how-does-google-chrome-store-passwords#:~:text=The%20passwords%20are%20encrypted%20and,API%20function%20for%20encrypting%20data)
-- [tutorialspoint](https://www.tutorialspoint.com/python_data_access/python_sqlite_cursor_object.htm)
+>- [null-byte](https://null-byte.wonderhowto.com/forum/extract-passwords-password-extraction-with-passgetter-0339053/)
+>- [medium-base64](https://medium.com/swlh/powering-the-internet-with-base64-d823ec5df747)
+>- [wiki-DPAPI](https://en.wikipedia.org/wiki/Data_Protection_API)
+>- [win32crypt](https://yiyibooks.cn/__src__/meikunyuan6/pywin32/pywin32/PyWin32/win32crypt.html)
+>- [microsoft](https://docs.microsoft.com/en-us/windows/win32/api/dpapi/nf-dpapi-cryptprotectdata?redirectedfrom=MSDN)
+>- [stackoverflow](https://stackoverflow.com/questions/61099492/chrome-80-password-file-decryption-in-python)
+>- [stackexchange](https://crypto.stackexchange.com/questions/78095/iv-generation-best-practice-for-aes-256-cbc#:~:text=1%20Answer&text=answer%20was%20accepted%E2%80%A6-,I%20saw%20some%20SWIFT%20code%20that%20generates%20IV%20for%20AES,zA%2DZ0%2D9%20space.)
+>- [google](https://cloud.google.com/security/encryption-at-rest/default-encryption)
+>- [superuser](https://superuser.com/questions/146742/how-does-google-chrome-store-passwords#:~:text=The%20passwords%20are%20encrypted%20and,API%20function%20for%20encrypting%20data)
+>- [tutorialspoint](https://www.tutorialspoint.com/python_data_access/python_sqlite_cursor_object.htm)

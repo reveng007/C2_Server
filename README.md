@@ -136,6 +136,8 @@ In this way the server lags...
 ### password spoofing portion:
 
 ![Alt text](https://github.com/reveng007/C2_Server/blob/main/passwd_spoof.gif)
+Hey, why would I show you all my passwords?? :stuck_out_tongue_winking_eye:
+Check this out by yourself...
 
 ## Links that helped me to make chrome browser password extractor:
 

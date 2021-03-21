@@ -122,7 +122,7 @@ In this way the server lags...
 
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
-- Wan/public ip spoofer (Though mentioned in help section, but that func is not uploaded, coming soon...)
+- Wlan profile and password spoofing
 - Ransomeware
 - Adding persistance for windows
 - PrivEsc
@@ -136,6 +136,7 @@ In this way the server lags...
 ### password spoofing portion:
 
 ![Alt text](https://github.com/reveng007/C2_Server/blob/main/passwd_spoof.gif)
+---
 Hey, why would I show you all my passwords?? :stuck_out_tongue_winking_eye:
 Check this out by yourself...
 

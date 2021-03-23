@@ -122,10 +122,9 @@ In this way the server lags...
 
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
-- Wlan profile and password spoofing
-- Ransomeware
 - Adding persistance for windows
 - PrivEsc
+- Ransomeware
 - If possible : mimikatz (support)
 
 ### Advancement of some functionalities:

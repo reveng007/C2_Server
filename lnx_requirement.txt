@@ -1,6 +1,6 @@
 termcolor==1.1.0
-pyfiglet==0.8.post1
 Pillow==8.1.2
 pynput==1.7.3
 pytest-shutil==1.7.0
 pycrypto==2.6.1
+pycryptodome==3.10.1

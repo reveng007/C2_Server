@@ -68,6 +68,9 @@ spoof_wlan_creds              :    Spoofs wlan wifi profile creds and public/wan
 spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 (Windows only)
 
+get_pid			      :    To know the processes running on the trgt 
+(Windows only)			   [You can update the list present in the rev_shell.py]
+
 You can also use other commands related to networking, etc for linux as well as windows
 ------------------------------------------------------------------------------------------
 ```

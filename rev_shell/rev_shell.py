@@ -292,7 +292,7 @@ def shell():
 			if os.name == 'nt':
 
 				# ADD list of preferred processes you want to scan
-				prf_list = ["chrome.exe", "calculator.exe", "notepad.exe", "cmd.exe", "Taskmgr.exe" ]
+				prf_list = ["chrome.exe", "notepad.exe", "cmd.exe", "Taskmgr.exe", "calculator.exe" ]
 
 				info_list = getting_info(prf_list)
 

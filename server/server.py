@@ -176,7 +176,7 @@ def server():
 	while True:
 
 	# Getting C2 prompt before getting shell connection
-		command = input(colored("C&C => ",'blue' ,  attrs=['bold']))
+		command = input(colored("C&C => ",'magenta' ,  attrs=['bold']))
 
 		# exiting C2 Console
 		if command == "exit":

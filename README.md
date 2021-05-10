@@ -1,3 +1,4 @@
+
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
@@ -139,7 +140,8 @@ In this way the server lags...
 
 ### password spoofing portion:
 
-![Alt text](https://github.com/reveng007/C2_Server/blob/main/passwd_spoof.gif)
+https://user-images.githubusercontent.com/61424547/117653005-85f9cb00-b1b1-11eb-972b-cb741ee6d3d2.mp4
+
 ---
 Hey, why would I show you all my passwords?? :stuck_out_tongue_winking_eye:
 Check this out by yourself...

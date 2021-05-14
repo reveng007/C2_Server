@@ -133,10 +133,8 @@ _In this case, I actually used Windows10 as victim machine._
     used  by me and the result for 2nd time use of 'ls' was shown now. And this goes on.
 In this way the server lags...
 
-- Exfiltration : Adding receiving folder section
-- Infiltration : Adding sending folder section
 - PrivEsc
-- Ransomeware
+- Rootkit, Windows (C/C++)
 
 ### Advancement of some functionalities:
 

@@ -20,6 +20,8 @@ Well, Command & Control server, also called C2 or C&C server. It is actually a c
 List of available Commands:
 ----------------------------------------------------------------------------------------
 
+help                          :    Shows available Commands 
+
 exit                          :    To terminate session
 
 mkdir <directory>
@@ -35,6 +37,8 @@ echo "<something>" >/>> file  :    To redirect text to a file, make files
 
 cd <directory>
 (linux/win)                   :    To change directory/folder
+
+pwd (linux/win)               :    To see present working directory
 
 del <file>                    :    To remove files
 (linux/win)

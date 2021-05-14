@@ -310,6 +310,8 @@ echo "<something>" >/>> file  :    To redirect text to a file, make files
 cd <directory>
 (linux/win)                   :    To change directory/folder
 
+pwd (linux/win)               :    To see present working directory
+
 del <file>                    :    To remove files
 (linux/win)
 

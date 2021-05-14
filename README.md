@@ -1,4 +1,5 @@
 
+
 [![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
 [![License: GPL v3](https://img.shields.io/badge/License-GPL%20v3-blue.svg)](http://www.gnu.org/licenses/gpl-3.0)
 
@@ -19,6 +20,8 @@ Well, Command & Control server, also called C2 or C&C server. It is actually a c
 List of available Commands:
 ----------------------------------------------------------------------------------------
 
+help                          :    Shows available Commands 
+
 exit                          :    To terminate session
 
 mkdir <directory>
@@ -34,6 +37,8 @@ echo "<something>" >/>> file  :    To redirect text to a file, make files
 
 cd <directory>
 (linux/win)                   :    To change directory/folder
+
+pwd (linux/win)               :    To see present working directory
 
 del <file>                    :    To remove files
 (linux/win)
@@ -128,10 +133,8 @@ _In this case, I actually used Windows10 as victim machine._
     used  by me and the result for 2nd time use of 'ls' was shown now. And this goes on.
 In this way the server lags...
 
-- Exfiltration : Adding receiving folder section
-- Infiltration : Adding sending folder section
 - PrivEsc
-- Ransomeware
+- Rootkit, Windows (C/C++)
 
 ### Advancement of some functionalities:
 
@@ -140,7 +143,7 @@ In this way the server lags...
 
 ### password spoofing portion:
 
-https://user-images.githubusercontent.com/61424547/117653005-85f9cb00-b1b1-11eb-972b-cb741ee6d3d2.mp4
+https://user-images.githubusercontent.com/61424547/117737416-d8de7d00-b1c7-11eb-8226-f2b88e41cb1d.mp4
 
 ---
 Hey, why would I show you all my passwords?? :stuck_out_tongue_winking_eye:

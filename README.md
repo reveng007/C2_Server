@@ -4,7 +4,7 @@
 
 ![](https://github.com/reveng007/C2_Server/blob/main/images/banner.png?raw=true)
 
-# Use this code for Educational Purpose only
+## [Disclaimer]: Use this code for Educational Purpose only
 
 # ***C2 Server***
 

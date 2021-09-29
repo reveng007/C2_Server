@@ -486,7 +486,7 @@ def banner():
 
 	print(colored('''
 ⚪ https://www.linkedin.com/in/soumyanil-biswas/
-⚪ https://twitter.com/soumyani1
+⚪ https://twitter.com/reveng007
 	''', 'cyan'))
 
 	print(colored('''

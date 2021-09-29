@@ -478,7 +478,7 @@ def banner():
 	print(colored("-"*50,'cyan'))
 	print("\r")
 
-	print(colored("Created by @soumyani1", 'cyan'))
+	print(colored("Created by @reveng007", 'cyan'))
 
 	print("\n")
 

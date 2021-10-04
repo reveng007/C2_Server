@@ -143,7 +143,6 @@ In this way the server lags...
 
 ### password spoofing portion:
 
-
 https://user-images.githubusercontent.com/61424547/118291285-6dd1c680-b4a5-11eb-81ff-f4ead5d99798.mp4
 
 ---

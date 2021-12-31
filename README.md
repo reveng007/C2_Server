@@ -161,3 +161,8 @@ Check this out by yourself...
 >- [google](https://cloud.google.com/security/encryption-at-rest/default-encryption)
 >- [superuser](https://superuser.com/questions/146742/how-does-google-chrome-store-passwords#:~:text=The%20passwords%20are%20encrypted%20and,API%20function%20for%20encrypting%20data)
 >- [tutorialspoint](https://www.tutorialspoint.com/python_data_access/python_sqlite_cursor_object.htm)
+
+## Author
+Soumyanil Biswas
+[@reveng007](https://twitter.com/reveng007)
+[linkedin](https://www.linkedin.com/in/soumyanil-biswas/)

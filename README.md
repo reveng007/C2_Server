@@ -164,5 +164,6 @@ Check this out by yourself...
 
 ## Author
 Soumyanil Biswas
-[@reveng007](https://twitter.com/reveng007)
-[Linkedin](https://www.linkedin.com/in/soumyanil-biswas/)
+#
+https://img.shields.io/badge/https://twitter.com/reveng007?style=for-the-badge&logo=twitter&logoColor=white
+https://img.shields.io/badge/https://www.linkedin.com/in/soumyanil-biswas?style=for-the-badge&logo=linkedin&logoColor=white

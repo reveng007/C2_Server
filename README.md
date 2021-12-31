@@ -166,3 +166,4 @@ Check this out by yourself...
 Soumyanil Biswas
 #
 [![](https://img.shields.io/badge/Twitter-@reveng-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/reveng007)
+[![](https://img.shields.io/badge/LinkedIn-@SoumyanilBiswas-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/soumyanil-biswas/)

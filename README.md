@@ -162,8 +162,7 @@ Check this out by yourself...
 >- [superuser](https://superuser.com/questions/146742/how-does-google-chrome-store-passwords#:~:text=The%20passwords%20are%20encrypted%20and,API%20function%20for%20encrypting%20data)
 >- [tutorialspoint](https://www.tutorialspoint.com/python_data_access/python_sqlite_cursor_object.htm)
 
-## Author
-Soumyanil Biswas
-#
-[![](https://img.shields.io/badge/Twitter-@reveng-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/reveng007)
+## Author: Soumyanil Biswas
+[![](https://img.shields.io/badge/Twitter-@reveng007-1DA1F2?style=flat-square&logo=twitter&logoColor=white)](https://twitter.com/reveng007)
 [![](https://img.shields.io/badge/LinkedIn-@SoumyanilBiswas-0077B5?style=flat-square&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/soumyanil-biswas/)
+[![](https://img.shields.io/badge/Github-@reveng007-0077B5?style=flat-square&logo=github&logoColor=black)](https://github.com/reveng007/)

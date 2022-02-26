@@ -137,8 +137,7 @@ I made my LKM rootkit repo public today. This can be used along with this C2 ser
     used  by me and the result for 2nd time use of 'ls' was shown now. And this goes on.
 In this way the server lags...
 
-- PrivEsc
-- Rootkit, Windows (C/C++)
+- Rootkit Windows, C++
 
 ### Advancement of some functionalities:
 

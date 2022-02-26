@@ -123,6 +123,10 @@ _In this case, I actually used Windows10 as victim machine._
 
 2. Aiming to make a more stable version of C2 server, as most C2 servers tend to lag/hang and even terminate sessions unreliably.
 
+### Updates:
+
+I made my LKM rootkit repo public today. This can be used along with this C2 server in orde to hide the remote commections/running implants: [reveng_rtkit](https://github.com/reveng007/reveng_rtkit)
+
 ## :pushpin: To Do List:
 - Response becomes slow sometimes.
 

@@ -125,7 +125,7 @@ _In this case, I actually used Windows10 as victim machine._
 
 ### Updates:
 
-I made my LKM rootkit repo public today. This can be used along with this C2 server in orde to hide the remote commections/running implants: [reveng_rtkit](https://github.com/reveng007/reveng_rtkit)
+I made my LKM rootkit repo public today. This can be used along with this C2 server in order to hide the remote connections/running implants: [reveng_rtkit](https://github.com/reveng007/reveng_rtkit)
 
 ## :pushpin: To Do List:
 - Response becomes slow sometimes.
